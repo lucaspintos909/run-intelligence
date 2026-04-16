@@ -160,3 +160,35 @@ def cardiac_drift(times_sec: list[int], hr_values: list[float],
     h_arr = np.array([p[1] for p in stable], dtype=float)
     slope = np.polyfit(t_arr, h_arr, 1)[0]  # bpm/second
     return round(float(slope) * 3600, 2)     # convert to bpm/hour
+
+
+# ─── Layer C: Fitness-Fatigue model (Banister/Zatsiorsky) ────────────────────
+
+from datetime import datetime
+
+
+def calculate_atl_ctl(sessions_loads: list[tuple[str, float]],
+                       reference_date: Optional[str] = None,
+                       decay_atl: int = 7,
+                       decay_ctl: int = 42) -> tuple[float, float]:
+    """
+    Exponential decay fitness-fatigue model.
+    sessions_loads: [(date_iso, load), ...] sorted ascending.
+    reference_date: date to calculate ATL/CTL for. Defaults to last session date.
+    Returns (ATL, CTL).
+    """
+    if not sessions_loads:
+        return 0.0, 0.0
+
+    ref = reference_date or sessions_loads[-1][0]
+    ref_dt = datetime.fromisoformat(ref)
+
+    atl, ctl = 0.0, 0.0
+    for date_str, load in sessions_loads:
+        days_ago = (ref_dt - datetime.fromisoformat(date_str)).days
+        if days_ago < 0:
+            continue  # future sessions (shouldn't happen)
+        atl += load * math.exp(-days_ago / decay_atl)
+        ctl += load * math.exp(-days_ago / decay_ctl)
+
+    return round(atl, 2), round(ctl, 2)

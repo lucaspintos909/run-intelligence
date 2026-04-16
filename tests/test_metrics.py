@@ -122,3 +122,43 @@ def test_cardiac_drift_none_when_insufficient_data():
     hr = [140, 141, 142, 143, 144]
     speed = [3.0] * 5
     assert cardiac_drift(times, hr, speed, speed_tolerance=0.05) is None
+
+
+# ─── Layer C tests ───────────────────────────────────────────────────────────
+from pipeline.metrics import calculate_atl_ctl
+
+def test_atl_ctl_empty():
+    atl, ctl = calculate_atl_ctl([])
+    assert atl == 0.0
+    assert ctl == 0.0
+
+def test_atl_ctl_single_session_same_day():
+    # e^(0/7) = 1, e^(0/42) = 1 → ATL = CTL = 200
+    atl, ctl = calculate_atl_ctl([("2026-04-15", 200.0)], reference_date="2026-04-15")
+    assert atl == pytest.approx(200.0, rel=0.01)
+    assert ctl == pytest.approx(200.0, rel=0.01)
+
+def test_atl_decays_faster_than_ctl():
+    # Session from 10 days ago
+    sessions = [("2026-04-05", 200.0)]
+    atl, ctl = calculate_atl_ctl(sessions, reference_date="2026-04-15")
+    # ATL: 200 * e^(-10/7) ≈ 47.8
+    # CTL: 200 * e^(-10/42) ≈ 157.2
+    assert atl < ctl
+
+def test_tsb_positive_after_big_session():
+    # Big session yesterday → ATL high but CTL higher → TSB > 0
+    sessions = [("2026-04-14", 500.0)]
+    atl, ctl = calculate_atl_ctl(sessions, reference_date="2026-04-15")
+    tsb = ctl - atl
+    assert tsb > 0
+    # ATL ~433, CTL ~488, TSB ~55
+    assert atl > 400
+    assert ctl > 400
+
+def test_atl_ctl_defaults_to_last_session_date():
+    sessions = [("2026-04-10", 150.0), ("2026-04-13", 200.0)]
+    atl, ctl = calculate_atl_ctl(sessions)  # no reference_date → uses 2026-04-13
+    # Both sessions contribute; ATL > 0
+    assert atl > 0
+    assert ctl > 0
