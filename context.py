@@ -160,18 +160,22 @@ def build_context_doc(profile: dict, last_session: dict, metrics: dict,
     return '\n'.join(lines)
 
 
+def _fmt(val) -> str:
+    return '?' if val is None else str(val)
+
+
 def build_session_log(sessions: list) -> str:
     header = "fecha      | km   | min  | avg_hr | z2%  | load  | decoup"
     separator = "-" * len(header)
     rows = [header, separator]
     for s in sorted(sessions, key=lambda x: x['date'], reverse=True):
         rows.append(
-            f"{s['date']} | {s.get('distance_km', '?'):<4} | "
-            f"{s.get('duration_min', '?'):<4} | "
-            f"{s.get('avg_hr', '?'):<6} | "
-            f"{s.get('zone2_pct', '?'):<4} | "
-            f"{s.get('training_load', '?'):<5} | "
-            f"{s.get('decoupling_pct', '?')}"
+            f"{s['date']} | {_fmt(s.get('distance_km')):<4} | "
+            f"{_fmt(s.get('duration_min')):<4} | "
+            f"{_fmt(s.get('avg_hr')):<6} | "
+            f"{_fmt(s.get('zone2_pct')):<4} | "
+            f"{_fmt(s.get('training_load')):<5} | "
+            f"{_fmt(s.get('decoupling_pct'))}"
         )
     return '\n'.join(rows)
 
