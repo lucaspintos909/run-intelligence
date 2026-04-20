@@ -13,7 +13,7 @@ from db.queries import (
     insert_wellness, get_all_sessions_loads, insert_metrics_snapshot,
     update_fcmax_observed
 )
-from pipeline.gpx_parser import parse_gpx, filter_hr_artifacts
+from pipeline.gpx_parser import parse_gpx, filter_hr_artifacts, get_gpx_date
 from pipeline.fcmax import (
     fcmax_tanaka, get_active_fcmax, should_update_fcmax_observed, p95_hr
 )
@@ -62,7 +62,7 @@ def process_gpx_file(gpx_path: str, fcmax: int) -> tuple[dict, list]:
         drift = cardiac_drift(timestamps[1:], hr_aligned, speed_stream)
 
     return {
-        'date': str(date_cls.today()),
+        'date': get_gpx_date(gpx_path),
         'source': 'gpx',
         'distance_km': distance_km,
         'duration_min': duration_min,
