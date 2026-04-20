@@ -1,6 +1,20 @@
 import gpxpy
 import gpxpy.gpx
-from datetime import timezone
+from datetime import date, timezone
+
+
+def get_gpx_date(path: str) -> str:
+    """Extract activity date from GPX metadata or first track point."""
+    with open(path, 'r') as f:
+        gpx = gpxpy.parse(f)
+    if gpx.time:
+        return str(gpx.time.date())
+    for track in gpx.tracks:
+        for segment in track.segments:
+            for point in segment.points:
+                if point.time:
+                    return str(point.time.date())
+    return str(date.today())
 
 
 def parse_gpx(path: str) -> tuple[list, list, list, list]:
@@ -54,17 +68,16 @@ def filter_hr_artifacts(hr_values: list[int],
                          max_change_per_sec: int = 30) -> list[int]:
     """
     Remove physiologically impossible HR values.
+    - Discard zero values (watch warmup / no signal)
     - Discard any value > max_bpm
     - Discard values where change from previous > max_change_per_sec
     """
     if not hr_values:
         return []
 
-    filtered = [hr_values[0]] if hr_values[0] <= max_bpm else []
-
-    for i in range(1, len(hr_values)):
-        hr = hr_values[i]
-        if hr > max_bpm:
+    filtered = []
+    for hr in hr_values:
+        if hr == 0 or hr > max_bpm:
             continue
         if filtered and abs(hr - filtered[-1]) > max_change_per_sec:
             continue
