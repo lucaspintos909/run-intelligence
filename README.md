@@ -116,6 +116,7 @@ poetry run ruff check . && poetry run ruff format .
 - [`_bmad-output/planning-artifacts/product-brief-run-intelligence.md`](_bmad-output/planning-artifacts/product-brief-run-intelligence.md) — Product brief
 - [`_bmad-output/planning-artifacts/prd.md`](_bmad-output/planning-artifacts/prd.md) — Product requirements document
 - [`_bmad-output/planning-artifacts/architecture.md`](_bmad-output/planning-artifacts/architecture.md) — Architecture decision document
+- [`_bmad-output/planning-artifacts/epics.md`](_bmad-output/planning-artifacts/epics.md) — Epic and story breakdown (37 stories across 6 epics)
 
 ## Design Principles
 
