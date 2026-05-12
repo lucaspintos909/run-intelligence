@@ -13,9 +13,9 @@ lastStep: 8
 status: 'complete'
 completedAt: '2026-05-11'
 inputDocuments:
-  - /home/lpintos/proyectos/run-intelligence/_bmad-output/planning-artifacts/prd.md
-  - /home/lpintos/proyectos/run-intelligence/_bmad-output/planning-artifacts/product-brief-run-intelligence.md
-  - /home/lpintos/proyectos/run-intelligence/_bmad-output/planning-artifacts/product-brief-run-intelligence-distillate.md
+  - /home/lpintos/proyectos/run-intelligence/planning/planning-artifacts/prd.md
+  - /home/lpintos/proyectos/run-intelligence/planning/planning-artifacts/product-brief-run-intelligence.md
+  - /home/lpintos/proyectos/run-intelligence/planning/planning-artifacts/product-brief-run-intelligence-distillate.md
   - /home/lpintos/proyectos/run-intelligence/docs/base_cientifica_running.md
   - /home/lpintos/proyectos/run-intelligence/docs/asma_running_base_teorica.md
 workflowType: 'architecture'

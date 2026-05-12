@@ -4,7 +4,7 @@ status: "complete"
 created: "2026-05-10"
 updated: "2026-05-10"
 inputs:
-  - "_bmad-output/brainstorming/brainstorming-session-2026-05-09-204826.md"
+  - "planning/brainstorming/brainstorming-session-2026-05-09-204826.md"
   - "docs/asma_running_base_teorica.md"
   - "docs/base_cientifica_running.md"
 ---

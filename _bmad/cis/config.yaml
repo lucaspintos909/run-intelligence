@@ -11,4 +11,4 @@ user_name: lpintos
 project_name: run-intelligence
 communication_language: spanish
 document_output_language: english
-output_folder: "{project-root}/_bmad-output"
+output_folder: "{project-root}/planning"

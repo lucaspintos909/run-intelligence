@@ -4,8 +4,8 @@ stepsCompleted:
   - step-02-design-epics
   - step-03-create-stories
 inputDocuments:
-  - /home/lpintos/proyectos/run-intelligence/_bmad-output/planning-artifacts/prd.md
-  - /home/lpintos/proyectos/run-intelligence/_bmad-output/planning-artifacts/architecture.md
+  - /home/lpintos/proyectos/run-intelligence/planning/planning-artifacts/prd.md
+  - /home/lpintos/proyectos/run-intelligence/planning/planning-artifacts/architecture.md
 ---
 
 # run-intelligence - Epic Breakdown

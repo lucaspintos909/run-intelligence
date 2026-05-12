@@ -19,9 +19,9 @@ stepsCompleted:
   - e-02-review
   - e-03-edit
 inputDocuments:
-  - /home/lpintos/proyectos/run-intelligence/_bmad-output/planning-artifacts/product-brief-run-intelligence.md
-  - /home/lpintos/proyectos/run-intelligence/_bmad-output/planning-artifacts/product-brief-run-intelligence-distillate.md
-  - /home/lpintos/proyectos/run-intelligence/_bmad-output/brainstorming/brainstorming-session-2026-05-09-204826.md
+  - /home/lpintos/proyectos/run-intelligence/planning/planning-artifacts/product-brief-run-intelligence.md
+  - /home/lpintos/proyectos/run-intelligence/planning/planning-artifacts/product-brief-run-intelligence-distillate.md
+  - /home/lpintos/proyectos/run-intelligence/planning/brainstorming/brainstorming-session-2026-05-09-204826.md
   - /home/lpintos/proyectos/run-intelligence/docs/base_cientifica_running.md
   - /home/lpintos/proyectos/run-intelligence/docs/asma_running_base_teorica.md
 releaseMode: phased
