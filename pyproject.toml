@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "run-intelligence"
+version = "0.1.0"
+description = "Running intelligence system with asthma-aware metrics"
+authors = ["lpintos"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "run_intelligence", from = "src"}]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+typer = {extras = ["all"], version = ">=0.12"}
+fitparse = "^1.2"
+sqlalchemy = "^2.0"
+pydantic = "^2.9"
+pydantic-settings = "^2.6"
+langgraph = "^0.2"
+alembic = "^1.13"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.8"
+pytest = "^8.3"
+
+[tool.poetry.scripts]
+run-intelligence = "run_intelligence.cli:app"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"

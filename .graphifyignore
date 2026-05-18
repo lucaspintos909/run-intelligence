@@ -1,8 +1,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/windows,linux,macos,python,visualstudiocode,dotenv
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,linux,macos,python,visualstudiocode,dotenv
 
-### custom ###
-fit-examples
+### CUSTOM ###
+_bmad
+.agents/skills
+
 
 ### dotenv ###
 .env
