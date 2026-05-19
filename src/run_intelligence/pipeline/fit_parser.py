@@ -118,8 +118,7 @@ def parse_fit_file(file_path: str) -> RawRunData:
     from fitparse import FitFile, FitParseError as _FitParseLibError
 
     try:
-        with open(file_path, "rb") as f:
-            fit_file = FitFile(f)
+        fit_file = FitFile(file_path)
     except FileNotFoundError:
         logger.error("[PIPELINE_ERROR] fit_parser: File not found: %s", file_path)
         raise FitParseError(f"File not found: {file_path}")
