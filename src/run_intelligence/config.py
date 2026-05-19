@@ -47,3 +47,15 @@ HR_LIMITS = {
     "rest_max": HR_REST_MAX,
     "age_predicted_max": HR_MAX_AGE_PREDICTED,
 }
+
+HR_ZONES = {
+    "z1": (50, 60),
+    "z2": (60, 70),
+    "z3": (70, 80),
+    "z4": (80, 90),
+    "z5": (90, 100),
+}
+
+DEFAULT_AGE = 30
+
+ELEVATION_NOISE_FILTER_METERS = 2.0
