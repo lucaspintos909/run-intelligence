@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     LLM_MODEL: str = "gpt-4"
     LLM_ENDPOINT: str = "https://api.openai.com/v1"
     DATA_DIR: str = "data"
+    DB_PATH: str = "data/run_intelligence.db"
     PROFILES_DIR: str = "profiles"
     LOG_LEVEL: str = "INFO"
 
