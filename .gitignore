@@ -3,6 +3,9 @@
 
 ### custom ###
 fit-examples
+graphify-out
+data/
+*.db
 
 ### dotenv ###
 .env

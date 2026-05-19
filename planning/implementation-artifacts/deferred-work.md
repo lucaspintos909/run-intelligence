@@ -13,3 +13,7 @@
 - Disclaimer hardcoded English, no i18n infrastructure [src/run_intelligence/config.py:31-35] — deferred, pre-existing (decisión de localización)
 - Edge cases: non-existent file/dir paths, invalid date formats, out-of-range severity on CLI commands [src/run_intelligence/cli.py:19-52] — deferred, pre-existing (stubs)
 - No asthma-related logic in initial scaffold [src/run_intelligence/] — deferred, Story 1.5 implementa
+
+## Deferred from: code review of 1-2-database-schema (2026-05-18)
+
+- JSON columns lack Pydantic validation at application layer [src/run_intelligence/db/repository.py] — deferred, application layer (pipeline, agents) not built yet in Story 1.2
