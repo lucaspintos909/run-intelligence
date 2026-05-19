@@ -38,7 +38,7 @@ WELLNESS_DISCLAIMER = (
 
 FIT_PARSING = {
     "gps_drift_mps": 50.0,
-    "max_records": 1000,
+    "max_records": 10000,
     "max_duration_seconds": 7200,
 }
 
