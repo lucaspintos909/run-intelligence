@@ -59,3 +59,16 @@ HR_ZONES = {
 DEFAULT_AGE = 30
 
 ELEVATION_NOISE_FILTER_METERS = 2.0
+
+ASTHMA_METRICS = {
+    "hr_pace_drift": {
+        "min_hr_range_bpm": 20.0,
+    },
+    "hr_variability": {
+        "min_hr_range_bpm": 10.0,
+    },
+}
+
+HR_ZONE_ANOMALY_THRESHOLD: float = 0.40
+
+CADENCE_CHANGE_THRESHOLD_PCT: float = 0.20
