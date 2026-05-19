@@ -35,3 +35,15 @@ WELLNESS_DISCLAIMER = (
     "Always consult with a healthcare professional before making changes to your fitness routine, "
     "asthma management, or if you experience any concerning symptoms."
 )
+
+FIT_PARSING = {
+    "gps_drift_mps": 50.0,
+    "max_records": 1000,
+    "max_duration_seconds": 7200,
+}
+
+HR_LIMITS = {
+    "rest_min": HR_REST_MIN,
+    "rest_max": HR_REST_MAX,
+    "age_predicted_max": HR_MAX_AGE_PREDICTED,
+}
