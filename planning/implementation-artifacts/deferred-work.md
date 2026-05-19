@@ -17,3 +17,7 @@
 ## Deferred from: code review of 1-2-database-schema (2026-05-18)
 
 - JSON columns lack Pydantic validation at application layer [src/run_intelligence/db/repository.py] — deferred, application layer (pipeline, agents) not built yet in Story 1.2
+
+## Deferred from: code review of 1-3-fit-file-parsing (2026-05-19)
+
+- Multiple session messages overwrite data silently [fit_parser.py:123-130] — deferred, pre-existing (multi-sport not in spec scope)

@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-12T14:39:12Z
-last_updated: 2026-05-18T23:59:59Z
+last_updated: 2026-05-19T00:00:00Z
 project: run-intelligence
 project_key: NOKEY
 tracking_system: file-system
@@ -46,7 +46,7 @@ development_status:
   epic-1: in-progress
   1-1-project-initialization: done
   1-2-database-schema: done
-  1-3-fit-file-parsing: backlog
+  1-3-fit-file-parsing: done
   1-4-standard-metrics-calculation: backlog
   1-5-asthma-aware-metrics-calculation: backlog
   1-6-data-validation-quality-flags: backlog
