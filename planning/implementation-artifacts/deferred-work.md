@@ -21,3 +21,10 @@
 ## Deferred from: code review of 1-3-fit-file-parsing (2026-05-19)
 
 - Multiple session messages overwrite data silently [fit_parser.py:123-130] — deferred, pre-existing (multi-sport not in spec scope)
+
+## Deferred from: code review of 1-6-data-validation-quality-flags (2026-05-20)
+
+- import math redundante en _haversine_distance [validation.py:183] — deferred, pre-existing
+- Pattern NaN-check inconsistente entre funciones [validation.py] — deferred, pre-existing
+- FitParseError re-raise pattern repetido 3 veces sin helper [validation.py:510-537] — deferred, pre-existing
+- Campos duplicados confidence_score/low_confidence_flag en RunData y DataQualityFlags — deferred, aceptado por usuario como diseño válido
