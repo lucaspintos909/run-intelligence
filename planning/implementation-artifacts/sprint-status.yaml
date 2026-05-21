@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-12T14:39:12Z
-last_updated: 2026-05-19T12:00:00Z
+last_updated: 2026-05-21T19:00:00Z
 project: run-intelligence
 project_key: NOKEY
 tracking_system: file-system
@@ -49,9 +49,9 @@ development_status:
   1-3-fit-file-parsing: done
   1-4-standard-metrics-calculation: done
   1-5-asthma-aware-metrics-calculation: done
-  1-6-data-validation-quality-flags: backlog
-  1-7-pipeline-orchestration: backlog
-  1-8-batch-processing: backlog
+  1-6-data-validation-quality-flags: done
+  1-7-pipeline-orchestration: done
+  1-8-batch-processing: review
   1-9-cli-output-modes: backlog
   epic-1-retrospective: optional
 
