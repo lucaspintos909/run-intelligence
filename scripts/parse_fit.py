@@ -21,7 +21,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 from run_intelligence.pipeline.fit_parser import FitParseError, parse_fit_file
 from run_intelligence.pipeline.metrics import (
     MetricCalculationError,
-    StandardMetrics,
     calculate_standard_metrics,
 )
 
