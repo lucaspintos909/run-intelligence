@@ -46,6 +46,8 @@ HR_LIMITS = {
     "rest_min": HR_REST_MIN,
     "rest_max": HR_REST_MAX,
     "age_predicted_max": HR_MAX_AGE_PREDICTED,
+    "artifact_threshold_bpm": 220,
+    "gps_drift_mps": 50.0,
 }
 
 HR_ZONES = {
@@ -72,3 +74,23 @@ ASTHMA_METRICS = {
 HR_ZONE_ANOMALY_THRESHOLD: float = 0.40
 
 CADENCE_CHANGE_THRESHOLD_PCT: float = 0.20
+
+LOW_CONFIDENCE_THRESHOLD: float = 0.5
+
+# Confidence deduction weights per data quality issue
+CONFIDENCE_DEDUCTION_THRESHOLD_EXCEEDED: float = 0.15
+CONFIDENCE_DEDUCTION_SPIKE: float = 0.10
+CONFIDENCE_DEDUCTION_GPS_DRIFT: float = 0.10
+CONFIDENCE_DEDUCTION_CADENCE_INCONSISTENCY: float = 0.05
+
+# HR spike detection: max - avg must exceed this to flag as spike
+HR_SPIKE_THRESHOLD_BPM: float = 30.0
+
+# GPS drift pace-consistency: speed within this factor of expected pace is not drift
+GPS_DRIFT_PACE_FACTOR: float = 3.0
+
+# Cadence pace-adjustment parameters
+CADENCE_PACE_BASELINE_SPK: float = 300.0  # 5:00/km reference pace in sec/km
+CADENCE_PACE_FACTOR_MIN: float = 0.5
+CADENCE_PACE_FACTOR_MAX: float = 2.0
+CADENCE_PACE_MARGIN: float = 1.5  # allow 50% margin for pace-explained
