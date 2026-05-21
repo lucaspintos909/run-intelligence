@@ -331,9 +331,11 @@ def process_directory(
     if not path.is_dir():
         raise ValueError(f"Path is not a directory: {directory_path}")
 
-    fit_files = sorted(
-        list(path.glob("*.fit")) + list(path.glob("*.FIT"))
-    )
+    try:
+        raw_matches = set(path.glob("*.fit")) | set(path.glob("*.FIT"))
+        fit_files = sorted(f for f in raw_matches if f.is_file())
+    except PermissionError as e:
+        raise ValueError(f"Cannot access directory: {directory_path}") from e
 
     total_files = len(fit_files)
     success_count = 0

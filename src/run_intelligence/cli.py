@@ -51,6 +51,8 @@ def _handle_batch(directory: str, verbose: bool, dry_run: bool) -> None:
         raise typer.Exit(code=0)
     except ValueError as e:
         sys.stderr.write(f"[CLI_ERROR] {e}\n")
+        if "does not exist" in str(e):
+            raise typer.Exit(code=1)
         raise typer.Exit(code=2)
     except typer.Exit:
         raise
