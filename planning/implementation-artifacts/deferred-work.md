@@ -28,3 +28,9 @@
 - Pattern NaN-check inconsistente entre funciones [validation.py] — deferred, pre-existing
 - FitParseError re-raise pattern repetido 3 veces sin helper [validation.py:510-537] — deferred, pre-existing
 - Campos duplicados confidence_score/low_confidence_flag en RunData y DataQualityFlags — deferred, aceptado por usuario como diseño válido
+
+## Deferred from: code review of 1-8-batch-processing (2026-05-21)
+
+- Unbounded memory consumption for very large directories [runner.py:334] — deferred, pre-existing (not in spec scope)
+- Missing per-file success indicators on stdout [runner.py:372-394] — deferred, spec ambiguity
+- Dry-run summary wording "would be processed" [runner.py:372-394] — deferred, spec ambiguity

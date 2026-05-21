@@ -1,6 +1,6 @@
 # Story 1.8: Batch Processing
 
-Status: review
+Status: done
 
 ## Story ID & Key
 
@@ -584,4 +584,10 @@ kimi-k2.6 (OpenCode)
 
 ### Review Findings
 
-(Will be filled by code-review agent after implementation)
+- [x] [Review][Patch] Duplicate file processing on case-insensitive filesystems [runner.py:334-336]
+- [x] [Review][Patch] PermissionError on unreadable directory not handled [runner.py:328-336]
+- [x] [Review][Patch] Subdirectories matching *.fit pattern not filtered out [runner.py:345]
+- [x] [Review][Patch] Non-existent directory yields exit code 2 instead of 1 [cli.py:52-54]
+- [x] [Review][Defer] Unbounded memory consumption for very large directories [runner.py:334] — deferred, pre-existing (not in spec scope)
+- [x] [Review][Defer] Missing per-file success indicators on stdout [runner.py:372-394] — deferred, spec ambiguity
+- [x] [Review][Defer] Dry-run summary wording "would be processed" [runner.py:372-394] — deferred, spec ambiguity
