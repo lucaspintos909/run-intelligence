@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-12T14:39:12Z
-last_updated: 2026-05-21T20:00:00Z
+last_updated: 2026-05-21T20:30:00Z
 project: run-intelligence
 project_key: NOKEY
 tracking_system: file-system
@@ -52,7 +52,7 @@ development_status:
   1-6-data-validation-quality-flags: done
   1-7-pipeline-orchestration: done
   1-8-batch-processing: done
-  1-9-cli-output-modes: backlog
+  1-9-cli-output-modes: ready-for-dev
   epic-1-retrospective: optional
 
   # Epic 2: Health Logging
