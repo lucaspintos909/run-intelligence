@@ -26,7 +26,7 @@ Uses existing HealthLogRepository.get_entries() and get_entry() methods - no new
   - Files: `/home/lpintos/.gsd/projects/e51dd9a6b959/worktrees/M001/src/run_intelligence/cli.py`
   - Verify: python3 -m run_intelligence list-health-logs --help && python3 -m run_intelligence view-health-log --help
 
-- [ ] **T02: Add CLI tests for health log query commands** `est:30m`
+- [x] **T02: Added CLI tests for list-health-logs and view-health-log commands** `est:30m`
   Add tests to tests/test_health_log/test_cli.py covering: (1) list-health-logs shows entries, (2) list-health-logs handles empty list, (3) view-health-log shows entry details, (4) view-health-log with invalid ID returns exit code 2 with error message. Follow existing test patterns using typer.testing.CliRunner and mocking.
   - Files: `/home/lpintos/.gsd/projects/e51dd9a6b959/worktrees/M001/tests/test_health_log/test_cli.py`
   - Verify: python3 -m pytest tests/test_health_log/test_cli.py -v

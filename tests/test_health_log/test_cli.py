@@ -549,3 +549,150 @@ class TestLogHealthRunAssociation:
                         )
                         # Should complete successfully
                         assert result.exit_code == 0
+
+
+class TestListHealthLogs:
+    """Tests for list-health-logs command."""
+
+    @pytest.fixture
+    def mock_health_entries(self):
+        """Create mock health log entries."""
+        entries = []
+        for i in range(3):
+            mock = MagicMock()
+            mock.id = i + 1
+            mock.date = date(2026, 5, 20 + i)
+            mock.peak_flow = 400 + (i * 50)
+            mock.sleep_quality = 3 + i
+            mock.post_run_rpe = 5 + i
+            mock.asthma_symptoms = i
+            mock.saba_use = i > 0
+            mock.notes = None
+            mock.run_id = None
+            entries.append(mock)
+        return entries
+
+    def test_list_health_logs_shows_entries(self, mock_health_entries):
+        """Test list-health-logs shows entries."""
+        with patch("run_intelligence.db.session._get_engine"):
+            with patch(
+                "run_intelligence.db.repository.HealthLogRepository"
+            ) as mock_repo_class:
+                mock_repo = MagicMock()
+                mock_repo.get_entries.return_value = mock_health_entries
+                mock_repo_class.return_value = mock_repo
+
+                from typer.testing import CliRunner
+
+                runner = CliRunner()
+                result = runner.invoke(app, ["list-health-logs"])
+                assert result.exit_code == 0
+                # Check that entries are displayed
+                assert "ID" in result.output
+                assert "Date" in result.output
+                assert "Peak Flow" in result.output
+                assert "2026-05-20" in result.output
+                assert "2026-05-21" in result.output
+                assert "2026-05-22" in result.output
+
+    def test_list_health_logs_with_limit(self, mock_health_entries):
+        """Test list-health-logs respects --limit option."""
+        with patch("run_intelligence.db.session._get_engine"):
+            with patch(
+                "run_intelligence.db.repository.HealthLogRepository"
+            ) as mock_repo_class:
+                mock_repo = MagicMock()
+                mock_repo.get_entries.return_value = mock_health_entries[:1]
+                mock_repo_class.return_value = mock_repo
+
+                from typer.testing import CliRunner
+
+                runner = CliRunner()
+                result = runner.invoke(app, ["list-health-logs", "--limit", "1"])
+                assert result.exit_code == 0
+                # Verify limit was passed to get_entries
+                mock_repo.get_entries.assert_called_once_with(limit=1)
+
+    def test_list_health_logs_empty_list(self):
+        """Test list-health-logs handles empty list."""
+        with patch("run_intelligence.db.session._get_engine"):
+            with patch(
+                "run_intelligence.db.repository.HealthLogRepository"
+            ) as mock_repo_class:
+                mock_repo = MagicMock()
+                mock_repo.get_entries.return_value = []
+                mock_repo_class.return_value = mock_repo
+
+                from typer.testing import CliRunner
+
+                runner = CliRunner()
+                result = runner.invoke(app, ["list-health-logs"])
+                assert result.exit_code == 0
+                assert "No health log entries found" in result.output
+
+
+class TestViewHealthLog:
+    """Tests for view-health-log command."""
+
+    @pytest.fixture
+    def mock_health_entry(self):
+        """Create a mock health log entry."""
+        mock = MagicMock()
+        mock.id = 1
+        mock.date = date(2026, 5, 21)
+        mock.peak_flow = 450
+        mock.sleep_quality = 4
+        mock.post_run_rpe = 7
+        mock.asthma_symptoms = 2
+        mock.saba_use = False
+        mock.notes = "Feeling good today"
+        mock.run_id = None
+        return mock
+
+    def test_view_health_log_shows_entry_details(self, mock_health_entry):
+        """Test view-health-log shows entry details."""
+        with patch("run_intelligence.db.session._get_engine"):
+            with patch(
+                "run_intelligence.db.repository.HealthLogRepository"
+            ) as mock_repo_class:
+                mock_repo = MagicMock()
+                mock_repo.get_entry.return_value = mock_health_entry
+                mock_repo_class.return_value = mock_repo
+
+                from typer.testing import CliRunner
+
+                runner = CliRunner()
+                result = runner.invoke(app, ["view-health-log", "--id", "1"])
+                assert result.exit_code == 0
+                # Check that entry details are displayed
+                assert "Health Log Entry #1" in result.output
+                assert "2026-05-21" in result.output
+                assert "450" in result.output
+                assert "Peak Flow" in result.output
+                assert "Sleep Quality" in result.output
+
+    def test_view_health_log_with_invalid_id_returns_exit_2(self):
+        """Test view-health-log with invalid ID returns exit code 2 with error message."""
+        with patch("run_intelligence.db.session._get_engine"):
+            with patch(
+                "run_intelligence.db.repository.HealthLogRepository"
+            ) as mock_repo_class:
+                mock_repo = MagicMock()
+                mock_repo.get_entry.return_value = None  # Entry not found
+                mock_repo_class.return_value = mock_repo
+
+                from typer.testing import CliRunner
+
+                runner = CliRunner()
+                result = runner.invoke(app, ["view-health-log", "--id", "999"])
+                assert result.exit_code == 2
+                assert "[ERROR]" in result.output or "not found" in result.output.lower()
+
+    def test_view_health_log_requires_id_option(self):
+        """Test view-health-log requires --id option."""
+        from typer.testing import CliRunner
+
+        runner = CliRunner()
+        result = runner.invoke(app, ["view-health-log"])
+        # Should fail due to missing required option
+        assert result.exit_code == 2

@@ -4,7 +4,7 @@ estimated_files: 1
 skills_used: []
 ---
 
-# T02: Add CLI tests for health log query commands
+# T02: Added CLI tests for list-health-logs and view-health-log commands
 
 Add tests to tests/test_health_log/test_cli.py covering: (1) list-health-logs shows entries, (2) list-health-logs handles empty list, (3) view-health-log shows entry details, (4) view-health-log with invalid ID returns exit code 2 with error message. Follow existing test patterns using typer.testing.CliRunner and mocking.
 
