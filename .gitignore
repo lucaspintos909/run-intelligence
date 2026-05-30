@@ -281,6 +281,14 @@ $RECYCLE.BIN/
 # ── GSD baseline (auto-generated) ──
 .gsd-id
 .gsd/exec/
+.gsd/CODEBASE.md
+.gsd/STATE.md
+.gsd/audit/
+.gsd/doctor-history.jsonl
+.gsd/notifications.jsonl
+.gsd/journal/
+.gsd/runtime/
+.gsd/graphs/
 .mcp.json
 .bg-shell/
 nul
