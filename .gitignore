@@ -289,6 +289,7 @@ $RECYCLE.BIN/
 .gsd/journal/
 .gsd/runtime/
 .gsd/graphs/
+.gsd/notifications.jsonl
 .mcp.json
 .bg-shell/
 nul
