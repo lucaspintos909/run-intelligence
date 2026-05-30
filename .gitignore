@@ -280,6 +280,7 @@ $RECYCLE.BIN/
 
 # ── GSD baseline (auto-generated) ──
 .gsd-id
+.gsd/exec/
 .mcp.json
 .bg-shell/
 nul

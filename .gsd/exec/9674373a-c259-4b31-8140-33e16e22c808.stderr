@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "<string>", line 2, in <module>
-    from run_intelligence.db.repositories import RunRepository
-ModuleNotFoundError: No module named 'run_intelligence.db.repositories'
