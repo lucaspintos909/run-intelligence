@@ -6,6 +6,7 @@ fit-examples
 graphify-out
 data/
 *.db
+.bg-shell
 
 ### dotenv ###
 .env
