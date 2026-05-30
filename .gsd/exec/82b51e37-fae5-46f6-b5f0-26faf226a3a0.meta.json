@@ -1,0 +1,18 @@
+{
+  "id": "82b51e37-fae5-46f6-b5f0-26faf226a3a0",
+  "runtime": "bash",
+  "purpose": "Test invalid run ID with mock LLM_API_KEY",
+  "script_chars": 156,
+  "started_at": "2026-05-30T18:26:56.306Z",
+  "finished_at": "2026-05-30T18:26:56.671Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 365,
+  "stdout_bytes": 61,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/82b51e37-fae5-46f6-b5f0-26faf226a3a0.stdout",
+  "stderr_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/82b51e37-fae5-46f6-b5f0-26faf226a3a0.stderr"
+}

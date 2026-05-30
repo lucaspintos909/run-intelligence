@@ -562,6 +562,144 @@ def report(
 
 
 @app.command()
+def list_health_logs(
+    limit: int = typer.Option(
+        50, "--limit", help="Maximum number of entries to show"
+    ),
+) -> None:
+    """List all health log entries.
+
+    Shows a formatted list of health log entries with dates and key metrics.
+
+    Example:
+        run-intelligence list-health-logs
+        run-intelligence list-health-logs --limit 100
+
+    Exit codes:
+        0: Success
+        1: Database error
+    """
+    from run_intelligence.db.session import _get_engine
+    from run_intelligence.db.repository import (
+        AuditLogRepository,
+        HealthLogRepository,
+    )
+    from sqlalchemy.orm import sessionmaker
+
+    try:
+        engine = _get_engine()
+        SessionLocal = sessionmaker(bind=engine)
+        session = SessionLocal()
+        try:
+            audit_logger = AuditLogRepository(session=session)
+            health_repo = HealthLogRepository(
+                session=session, audit_logger=audit_logger
+            )
+
+            entries = health_repo.get_entries(limit=limit)
+
+            if not entries:
+                sys.stdout.write("No health log entries found.\n")
+                raise Exit(code=0)
+
+            # Format header
+            sys.stdout.write(f"{'ID':<6} {'Date':<12} {'Peak Flow':<10} {'Sleep':<6} {'RPE':<5} {'Symptoms':<10} {'SABA':<6}\n")
+            sys.stdout.write("-" * 60 + "\n")
+
+            # Format each entry
+            for entry in entries:
+                date_str = str(entry.date) if entry.date else "-"
+                peak_flow = f"{entry.peak_flow}" if entry.peak_flow is not None else "-"
+                sleep = f"{entry.sleep_quality}" if entry.sleep_quality is not None else "-"
+                rpe = f"{entry.post_run_rpe}" if entry.post_run_rpe is not None else "-"
+                symptoms = f"{entry.asthma_symptoms}" if entry.asthma_symptoms is not None else "-"
+                saba = "yes" if entry.saba_use else "no" if entry.saba_use is not None else "-"
+
+                sys.stdout.write(
+                    f"{entry.id:<6} {date_str:<12} {peak_flow:<10} {sleep:<6} {rpe:<5} {symptoms:<10} {saba:<6}\n"
+                )
+
+            sys.stdout.write(f"\nTotal: {len(entries)} entries\n")
+
+        finally:
+            session.close()
+    except Exit:
+        raise
+    except Exception as e:
+        sys.stderr.write(f"[LIST_HEALTH_LOGS_ERROR] {e}\n")
+        raise Exit(code=1)
+
+
+@app.command()
+def view_health_log(
+    id: int = typer.Option(..., "--id", help="Health log entry ID to view"),
+) -> None:
+    """View details of a specific health log entry.
+
+    Shows all recorded fields for the specified health log entry.
+
+    Example:
+        run-intelligence view-health-log --id 1
+
+    Exit codes:
+        0: Success
+        1: Database error
+        2: Entry not found (invalid ID)
+    """
+    from run_intelligence.db.session import _get_engine
+    from run_intelligence.db.repository import (
+        AuditLogRepository,
+        HealthLogRepository,
+    )
+    from sqlalchemy.orm import sessionmaker
+
+    try:
+        engine = _get_engine()
+        SessionLocal = sessionmaker(bind=engine)
+        session = SessionLocal()
+        try:
+            audit_logger = AuditLogRepository(session=session)
+            health_repo = HealthLogRepository(
+                session=session, audit_logger=audit_logger
+            )
+
+            entry = health_repo.get_entry(id)
+
+            if entry is None:
+                sys.stderr.write(f"[ERROR] Health log entry with ID {id} not found.\n")
+                raise Exit(code=2)
+
+            # Format entry details
+            sys.stdout.write(f"Health Log Entry #{entry.id}\n")
+            sys.stdout.write("=" * 40 + "\n")
+            sys.stdout.write(f"Date:          {entry.date}\n")
+
+            if entry.peak_flow is not None:
+                sys.stdout.write(f"Peak Flow:     {entry.peak_flow} L/min\n")
+            if entry.sleep_quality is not None:
+                sys.stdout.write(f"Sleep Quality: {entry.sleep_quality}/5\n")
+            if entry.post_run_rpe is not None:
+                sys.stdout.write(f"Post-run RPE:  {entry.post_run_rpe}/10\n")
+            if entry.asthma_symptoms is not None:
+                sys.stdout.write(f"Asthma Symptoms: {entry.asthma_symptoms}/5\n")
+            if entry.saba_use is not None:
+                saba_str = "yes" if entry.saba_use else "no"
+                sys.stdout.write(f"SABA Use:     {saba_str}\n")
+            if entry.notes:
+                sys.stdout.write(f"Notes:         {entry.notes}\n")
+            if entry.run_id is not None:
+                sys.stdout.write(f"Associated Run ID: {entry.run_id}\n")
+
+        finally:
+            session.close()
+    except Exit:
+        raise
+    except Exception as e:
+        sys.stderr.write(f"[VIEW_HEALTH_LOG_ERROR] {e}\n")
+        raise Exit(code=1)
+
+
+@app.command()
 def purge(
     confirm: bool = typer.Option(
         False,

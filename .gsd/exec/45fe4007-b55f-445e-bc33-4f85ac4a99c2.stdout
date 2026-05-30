@@ -1,0 +1,28 @@
+                                                                                
+ Usage: python -m run_intelligence log-health [OPTIONS]                         
+                                                                                
+ Log a health entry with asthma symptoms, peak flow, and rescue inhaler use.    
+                                                                                
+ Example:     run-intelligence log-health --date 2026-05-21 --peak-flow 450     
+ --asthma-symptoms 2     run-intelligence log-health --post-run-rpe 7           
+ --sleep-quality 3 --verbose                                                    
+ Exit codes:     0: Success     1: Database or write error     2: Invalid       
+ arguments                                                                      
+                                                                                
+╭─ Options ────────────────────────────────────────────────────────────────────╮
+│ --date                     TEXT                     Date (YYYY-MM-DD),       │
+│                                                     defaults to today        │
+│ --peak-flow                INTEGER                  Peak flow reading        │
+│                                                     (L/min)                  │
+│ --sleep-quality            INTEGER RANGE [1<=x<=5]  Sleep quality 1-5        │
+│ --post-run-rpe             INTEGER RANGE            Post-run RPE 1-10        │
+│                            [1<=x<=10]                                        │
+│ --asthma-symptoms          INTEGER RANGE [0<=x<=5]  Asthma symptoms 0-5      │
+│ --saba-use                                          Rescue inhaler used      │
+│                                                     (true/false)             │
+│ --notes                    TEXT                     Additional notes         │
+│ --verbose          -v                               Show saved field values  │
+│ --help                                              Show this message and    │
+│                                                     exit.                    │
+╰──────────────────────────────────────────────────────────────────────────────╯
+

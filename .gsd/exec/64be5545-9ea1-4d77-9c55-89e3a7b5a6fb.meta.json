@@ -1,0 +1,18 @@
+{
+  "id": "64be5545-9ea1-4d77-9c55-89e3a7b5a6fb",
+  "runtime": "bash",
+  "purpose": "Run single test",
+  "script_chars": 220,
+  "started_at": "2026-05-30T18:25:45.802Z",
+  "finished_at": "2026-05-30T18:25:46.623Z",
+  "exit_code": 1,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 821,
+  "stdout_bytes": 1176,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/64be5545-9ea1-4d77-9c55-89e3a7b5a6fb.stdout",
+  "stderr_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/64be5545-9ea1-4d77-9c55-89e3a7b5a6fb.stderr"
+}

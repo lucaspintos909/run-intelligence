@@ -1,0 +1,21 @@
+158:class HealthLogRepository:
+159-    """Repository for HealthLog entity CRUD operations."""
+160-
+161-    def __init__(self, session: Session, audit_logger: AuditLogRepository):
+162-        self.session = session
+163-        self.audit_logger = audit_logger
+164-
+165-    def create_entry(
+166-        self,
+167-        entry_date: Optional[date] = None,
+168-        peak_flow: Optional[int] = None,
+169-        sleep_quality: Optional[int] = None,
+170-        post_run_rpe: Optional[int] = None,
+171-        asthma_symptoms: Optional[int] = None,
+172-        saba_use: Optional[bool] = None,
+173-        notes: Optional[str] = None,
+174-        run_id: Optional[int] = None,
+175-    ) -> HealthLog:
+176-        """Create a new health log entry."""
+177-        if entry_date is None:
+178-            entry_date = date.today()

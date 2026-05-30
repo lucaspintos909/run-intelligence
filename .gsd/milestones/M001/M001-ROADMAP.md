@@ -13,7 +13,7 @@
 
 ## Slices
 
-- [ ] **S01: Interactive Health Logging CLI** `risk:high` `depends:[]`
+- [x] **S01: Interactive Health Logging CLI** `risk:high` `depends:[]`
   > After this: User can run `python -m run_intelligence --log-health` and input peak flow, sleep quality, RPE, asthma symptoms (0-3), SABA use, and notes interactively
 
 - [ ] **S02: Run Association** `risk:medium` `depends:[S01]`

@@ -26,7 +26,7 @@ The log_health command already integrates with HealthLogRepository. This slice a
   - Files: `/home/lpintos/.gsd/projects/e51dd9a6b959/worktrees/M001/src/run_intelligence/cli.py`
   - Verify: python3 -m pytest tests/test_cli.py -v -k log_health --tb=short
 
-- [ ] **T02: Add unit tests for interactive health log CLI** `est:30m`
+- [x] **T02: Added 40 unit tests for interactive health log CLI and HealthLogRepository** `est:30m`
   Why: The project needs test coverage for the health log functionality to ensure interactive prompts work correctly and validate input.
   - Files: `/home/lpintos/.gsd/projects/e51dd9a6b959/worktrees/M001/tests/test_health_log/test_cli.py`, `/home/lpintos/.gsd/projects/e51dd9a6b959/worktrees/M001/tests/test_health_log/test_repository.py`
   - Verify: python3 -m pytest tests/test_health_log/ -v --tb=short

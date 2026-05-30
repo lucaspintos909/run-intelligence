@@ -1,0 +1,18 @@
+{
+  "id": "47b3fc03-832e-43aa-bdda-d07b6aee5120",
+  "runtime": "bash",
+  "purpose": "Run full test suite",
+  "script_chars": 54,
+  "started_at": "2026-05-30T18:27:34.721Z",
+  "finished_at": "2026-05-30T18:27:44.682Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 9961,
+  "stdout_bytes": 5003,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/47b3fc03-832e-43aa-bdda-d07b6aee5120.stdout",
+  "stderr_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/47b3fc03-832e-43aa-bdda-d07b6aee5120.stderr"
+}

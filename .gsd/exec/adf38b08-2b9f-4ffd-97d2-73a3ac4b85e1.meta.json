@@ -1,0 +1,18 @@
+{
+  "id": "adf38b08-2b9f-4ffd-97d2-73a3ac4b85e1",
+  "runtime": "bash",
+  "purpose": "Verify CLI tests pass",
+  "script_chars": 81,
+  "started_at": "2026-05-30T18:28:49.355Z",
+  "finished_at": "2026-05-30T18:28:50.451Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 1096,
+  "stdout_bytes": 2793,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/adf38b08-2b9f-4ffd-97d2-73a3ac4b85e1.stdout",
+  "stderr_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/adf38b08-2b9f-4ffd-97d2-73a3ac4b85e1.stderr"
+}

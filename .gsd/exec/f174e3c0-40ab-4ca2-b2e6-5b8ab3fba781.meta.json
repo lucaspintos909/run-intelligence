@@ -1,0 +1,18 @@
+{
+  "id": "f174e3c0-40ab-4ca2-b2e6-5b8ab3fba781",
+  "runtime": "bash",
+  "purpose": "Check current directory and src structure",
+  "script_chars": 18,
+  "started_at": "2026-05-30T18:27:13.014Z",
+  "finished_at": "2026-05-30T18:27:13.022Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 8,
+  "stdout_bytes": 227,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/f174e3c0-40ab-4ca2-b2e6-5b8ab3fba781.stdout",
+  "stderr_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/f174e3c0-40ab-4ca2-b2e6-5b8ab3fba781.stderr"
+}
