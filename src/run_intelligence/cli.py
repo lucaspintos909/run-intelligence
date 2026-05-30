@@ -167,6 +167,7 @@ def batch(
 
 @app.command()
 def log_health(
+    ctx: typer.Context,
     date: Optional[str] = typer.Option(
         None, "--date", help="Date (YYYY-MM-DD), defaults to today"
     ),
@@ -204,6 +205,43 @@ def log_health(
     from run_intelligence.db.session import _get_engine
     from run_intelligence.db.repository import AuditLogRepository, HealthLogRepository
     from sqlalchemy.orm import sessionmaker
+
+    # Handle saba_use: if not provided via flag, prompt with typer.confirm()
+    # Check if we're in interactive mode (no health fields provided via CLI)
+    # If no health-related arguments are provided, prompt interactively for each field
+    interactive_mode = (
+        date is None
+        and peak_flow is None
+        and sleep_quality is None
+        and post_run_rpe is None
+        and asthma_symptoms is None
+        and saba_use is None
+        and notes is None
+    )
+
+    if interactive_mode:
+        # Prompt for date (optional, defaults to today)
+        date_input = typer.prompt("Date (YYYY-MM-DD), or press Enter for today:", default="")
+        date = date_input if date_input.strip() else None
+
+        # Prompt for numeric fields with validation
+        peak_flow_input = typer.prompt("Peak flow reading (L/min), or press Enter to skip:", default="")
+        peak_flow = int(peak_flow_input) if peak_flow_input.strip() else None
+
+        sleep_quality_input = typer.prompt("Sleep quality (1-5), or press Enter to skip:", default="")
+        sleep_quality = int(sleep_quality_input) if sleep_quality_input.strip() else None
+
+        post_run_rpe_input = typer.prompt("Post-run RPE (1-10), or press Enter to skip:", default="")
+        post_run_rpe = int(post_run_rpe_input) if post_run_rpe_input.strip() else None
+
+        asthma_symptoms_input = typer.prompt("Asthma symptoms (0-5), or press Enter to skip:", default="")
+        asthma_symptoms = int(asthma_symptoms_input) if asthma_symptoms_input.strip() else None
+
+        # saba_use uses typer.confirm() for boolean
+        saba_use = typer.confirm("Rescue inhaler/SABA used?", default=None)
+
+        notes_input = typer.prompt("Additional notes (optional, press Enter to skip):", default="")
+        notes = notes_input.strip() if notes_input.strip() else None
 
     try:
         parsed_date = date_type.today()
