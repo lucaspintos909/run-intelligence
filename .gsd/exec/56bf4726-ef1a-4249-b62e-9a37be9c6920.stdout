@@ -1,0 +1,15 @@
+                                                                                
+ Usage: python -m run_intelligence list-health-logs [OPTIONS]                   
+                                                                                
+ List all health log entries.                                                   
+                                                                                
+ Shows a formatted list of health log entries with dates and key metrics.       
+ Example:     run-intelligence list-health-logs     run-intelligence            
+ list-health-logs --limit 100                                                   
+ Exit codes:     0: Success     1: Database error                               
+                                                                                
+╭─ Options ────────────────────────────────────────────────────────────────────╮
+│ --limit        INTEGER  Maximum number of entries to show [default: 50]      │
+│ --help                  Show this message and exit.                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+

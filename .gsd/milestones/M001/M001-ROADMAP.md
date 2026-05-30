@@ -16,10 +16,10 @@
 - [x] **S01: Interactive Health Logging CLI** `risk:high` `depends:[]`
   > After this: User can run `python -m run_intelligence --log-health` and input peak flow, sleep quality, RPE, asthma symptoms (0-3), SABA use, and notes interactively
 
-- [ ] **S02: Run Association** `risk:medium` `depends:[S01]`
+- [x] **S02: Run Association** `risk:medium` `depends:[S01]`
   > After this: User can associate a health log entry with an existing run via `--associate-run <id>`
 
-- [ ] **S03: Health Log Query Commands** `risk:low` `depends:[S02]`
+- [x] **S03: Health Log Query Commands** `risk:low` `depends:[S02]`
   > After this: User can list and view health log entries via CLI
 
 ## Boundary Map

@@ -1,0 +1,18 @@
+{
+  "id": "86bc3086-9553-431a-8db4-9faf1031b456",
+  "runtime": "bash",
+  "purpose": "Test view-health-log with invalid ID",
+  "script_chars": 168,
+  "started_at": "2026-05-30T18:36:49.306Z",
+  "finished_at": "2026-05-30T18:36:49.654Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 348,
+  "stdout_bytes": 63,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/86bc3086-9553-431a-8db4-9faf1031b456.stdout",
+  "stderr_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/86bc3086-9553-431a-8db4-9faf1031b456.stderr"
+}
