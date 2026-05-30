@@ -1,0 +1,18 @@
+{
+  "id": "73c0722d-7572-4e91-b3f8-3409cbdfe615",
+  "runtime": "bash",
+  "purpose": "Check for existing runs in database",
+  "script_chars": 231,
+  "started_at": "2026-05-30T18:27:22.987Z",
+  "finished_at": "2026-05-30T18:27:23.329Z",
+  "exit_code": 1,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 342,
+  "stdout_bytes": 0,
+  "stderr_bytes": 207,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/73c0722d-7572-4e91-b3f8-3409cbdfe615.stdout",
+  "stderr_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/73c0722d-7572-4e91-b3f8-3409cbdfe615.stderr"
+}

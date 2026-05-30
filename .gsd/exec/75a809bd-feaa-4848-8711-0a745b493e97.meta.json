@@ -1,0 +1,18 @@
+{
+  "id": "75a809bd-feaa-4848-8711-0a745b493e97",
+  "runtime": "bash",
+  "purpose": "Find HealthLog model",
+  "script_chars": 61,
+  "started_at": "2026-05-30T18:16:58.888Z",
+  "finished_at": "2026-05-30T18:16:58.903Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 15,
+  "stdout_bytes": 26,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/75a809bd-feaa-4848-8711-0a745b493e97.stdout",
+  "stderr_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/75a809bd-feaa-4848-8711-0a745b493e97.stderr"
+}

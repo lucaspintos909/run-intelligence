@@ -1,0 +1,13 @@
+25:def _handle_process(file: str, verbose: bool, dry_run: bool) -> None:
+42:def _handle_batch(directory: str, verbose: bool, dry_run: bool) -> None:
+71:def main(
+105:@app.command()
+106:def process(
+141:@app.command()
+142:def batch(
+168:@app.command()
+169:def log_health(
+402:@app.command()
+403:def report(
+564:@app.command()
+565:def purge(

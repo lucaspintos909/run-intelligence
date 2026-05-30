@@ -1,0 +1,18 @@
+{
+  "id": "45fe4007-b55f-445e-bc33-4f85ac4a99c2",
+  "runtime": "bash",
+  "purpose": "Verify CLI help works",
+  "script_chars": 45,
+  "started_at": "2026-05-30T18:16:32.698Z",
+  "finished_at": "2026-05-30T18:16:33.097Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 399,
+  "stdout_bytes": 2546,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/45fe4007-b55f-445e-bc33-4f85ac4a99c2.stdout",
+  "stderr_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/45fe4007-b55f-445e-bc33-4f85ac4a99c2.stderr"
+}

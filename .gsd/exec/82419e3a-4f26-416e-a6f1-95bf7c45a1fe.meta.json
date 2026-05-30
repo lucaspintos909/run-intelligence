@@ -1,0 +1,18 @@
+{
+  "id": "82419e3a-4f26-416e-a6f1-95bf7c45a1fe",
+  "runtime": "bash",
+  "purpose": "Search for list commands in CLI",
+  "script_chars": 58,
+  "started_at": "2026-05-30T18:30:43.532Z",
+  "finished_at": "2026-05-30T18:30:43.539Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 7,
+  "stdout_bytes": 340,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/82419e3a-4f26-416e-a6f1-95bf7c45a1fe.stdout",
+  "stderr_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/82419e3a-4f26-416e-a6f1-95bf7c45a1fe.stderr"
+}

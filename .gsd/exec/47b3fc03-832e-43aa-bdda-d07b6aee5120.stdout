@@ -1,0 +1,50 @@
+tests/test_pipeline/test_validation.py::TestDetectGpsDrift::test_normal_gps_no_drift PASSED [ 90%]
+tests/test_pipeline/test_validation.py::TestDetectGpsDrift::test_gps_drift_detected PASSED [ 90%]
+tests/test_pipeline/test_validation.py::TestDetectGpsDrift::test_pace_consistent_not_drift PASSED [ 90%]
+tests/test_pipeline/test_validation.py::TestDetectGpsDrift::test_none_raw_data_raises PASSED [ 90%]
+tests/test_pipeline/test_validation.py::TestDetectGpsDrift::test_gps_with_none_values PASSED [ 91%]
+tests/test_pipeline/test_validation.py::TestDetectGpsDrift::test_nan_gps_values PASSED [ 91%]
+tests/test_pipeline/test_validation.py::TestDetectCadenceInconsistencies::test_no_cadence_data PASSED [ 91%]
+tests/test_pipeline/test_validation.py::TestDetectCadenceInconsistencies::test_normal_cadence PASSED [ 91%]
+tests/test_pipeline/test_validation.py::TestDetectCadenceInconsistencies::test_high_cadence_change PASSED [ 92%]
+tests/test_pipeline/test_validation.py::TestDetectCadenceInconsistencies::test_pace_explained PASSED [ 92%]
+tests/test_pipeline/test_validation.py::TestDetectCadenceInconsistencies::test_none_raw_data_raises PASSED [ 92%]
+tests/test_pipeline/test_validation.py::TestDetectCadenceInconsistencies::test_nan_cadence PASSED [ 92%]
+tests/test_pipeline/test_validation.py::TestDetectCadenceInconsistencies::test_zero_cadence_avg PASSED [ 93%]
+tests/test_pipeline/test_validation.py::TestCalculateConfidenceScore::test_perfect_data PASSED [ 93%]
+tests/test_pipeline/test_validation.py::TestCalculateConfidenceScore::test_with_hr_artifacts PASSED [ 93%]
+tests/test_pipeline/test_validation.py::TestCalculateConfidenceScore::test_with_gps_drift PASSED [ 93%]
+tests/test_pipeline/test_validation.py::TestCalculateConfidenceScore::test_with_cadence_inconsistency PASSED [ 94%]
+tests/test_pipeline/test_validation.py::TestCalculateConfidenceScore::test_pace_explained_no_deduction PASSED [ 94%]
+tests/test_pipeline/test_validation.py::TestCalculateConfidenceScore::test_multiple_issues PASSED [ 94%]
+tests/test_pipeline/test_validation.py::TestCalculateConfidenceScore::test_no_asthma_confidence PASSED [ 94%]
+tests/test_pipeline/test_validation.py::TestCalculateConfidenceScore::test_nan_asthma_confidence PASSED [ 95%]
+tests/test_pipeline/test_validation.py::TestCalculateConfidenceScore::test_low_confidence_threshold PASSED [ 95%]
+tests/test_pipeline/test_validation.py::TestCalculateConfidenceScore::test_just_below_threshold PASSED [ 95%]
+tests/test_pipeline/test_validation.py::TestCalculateConfidenceScore::test_confidence_floor_at_zero PASSED [ 95%]
+tests/test_pipeline/test_validation.py::TestValidateAndFlag::test_none_file_path_raises PASSED [ 96%]
+tests/test_pipeline/test_validation.py::TestValidateAndFlag::test_missing_file_raises PASSED [ 96%]
+tests/test_pipeline/test_validation.py::TestValidateAndFlag::test_orchestrates_full_pipeline PASSED [ 96%]
+tests/test_pipeline/test_validation.py::TestValidateAndFlag::test_deterministic_with_mocks PASSED [ 96%]
+tests/test_pipeline/test_validation.py::TestValidateAndFlag::test_json_serialization_roundtrip PASSED [ 97%]
+tests/test_pipeline/test_validation.py::TestDeterministicBehavior::test_detect_hr_artifacts_deterministic PASSED [ 97%]
+tests/test_pipeline/test_validation.py::TestDeterministicBehavior::test_detect_gps_drift_deterministic PASSED [ 97%]
+tests/test_pipeline/test_validation.py::TestDeterministicBehavior::test_detect_cadence_inconsistencies_deterministic PASSED [ 97%]
+tests/test_pipeline/test_validation.py::TestDeterministicBehavior::test_calculate_confidence_score_deterministic PASSED [ 98%]
+tests/test_pipeline/test_validation.py::TestEdgeCases::test_all_flags_empty PASSED [ 98%]
+tests/test_pipeline/test_validation.py::TestEdgeCases::test_all_flags_present PASSED [ 98%]
+tests/test_pipeline/test_validation.py::TestEdgeCases::test_run_data_with_all_metrics PASSED [ 98%]
+tests/test_pipeline/test_validation.py::TestEdgeCases::test_extreme_hr_value PASSED [ 99%]
+tests/test_pipeline/test_validation.py::TestEdgeCases::test_empty_gps_lists PASSED [ 99%]
+tests/test_pipeline/test_validation.py::TestEdgeCases::test_mismatched_gps_lengths PASSED [ 99%]
+tests/test_pipeline/test_validation.py::TestEdgeCases::test_cadence_exactly_at_threshold PASSED [ 99%]
+tests/test_pipeline/test_validation.py::TestEdgeCases::test_json_schema_matches_ac6 PASSED [100%]
+
+=================================== FAILURES ===================================
+__________________ TestParseFitFile.test_max_records_exceeded __________________
+tests/test_pipeline/test_fit_parser.py:504: in test_max_records_exceeded
+    with pytest.raises(FitParseError, match="Exceeded max records limit"):
+E   Failed: DID NOT RAISE <class 'run_intelligence.pipeline.fit_parser.FitParseError'>
+=========================== short test summary info ============================
+FAILED tests/test_pipeline/test_fit_parser.py::TestParseFitFile::test_max_records_exceeded
+=================== 1 failed, 401 passed, 1 skipped in 9.05s ===================

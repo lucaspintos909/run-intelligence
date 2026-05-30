@@ -1,0 +1,18 @@
+{
+  "id": "1af847e1-a0d1-48eb-ba80-cedc6c531812",
+  "runtime": "bash",
+  "purpose": "Check the failing test details",
+  "script_chars": 120,
+  "started_at": "2026-05-30T18:27:54.491Z",
+  "finished_at": "2026-05-30T18:27:55.471Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 980,
+  "stdout_bytes": 1076,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/1af847e1-a0d1-48eb-ba80-cedc6c531812.stdout",
+  "stderr_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/1af847e1-a0d1-48eb-ba80-cedc6c531812.stderr"
+}

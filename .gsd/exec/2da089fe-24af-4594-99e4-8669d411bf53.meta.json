@@ -1,0 +1,18 @@
+{
+  "id": "2da089fe-24af-4594-99e4-8669d411bf53",
+  "runtime": "bash",
+  "purpose": "Find requirements in worktree",
+  "script_chars": 42,
+  "started_at": "2026-05-30T18:30:54.041Z",
+  "finished_at": "2026-05-30T18:30:54.056Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 15,
+  "stdout_bytes": 0,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/2da089fe-24af-4594-99e4-8669d411bf53.stdout",
+  "stderr_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/2da089fe-24af-4594-99e4-8669d411bf53.stderr"
+}

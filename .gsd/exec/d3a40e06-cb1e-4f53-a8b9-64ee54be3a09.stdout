@@ -1,0 +1,12 @@
+190:    associate_run: Optional[int] = typer.Option(
+227:        and associate_run is None
+295:                            associate_run = None
+305:                                associate_run = selected_id
+316:            associate_run = None
+339:            # Validate associate_run if provided
+340:            run_id = None
+341:            if associate_run is not None:
+342:                run = run_repo.get_run(associate_run)
+345:                        f"[VALIDATION_ERROR] Run with ID {associate_run} not found.\n"
+348:                run_id = associate_run
+358:                run_id=run_id,

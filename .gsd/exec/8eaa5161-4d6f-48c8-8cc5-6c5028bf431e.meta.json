@@ -1,0 +1,18 @@
+{
+  "id": "8eaa5161-4d6f-48c8-8cc5-6c5028bf431e",
+  "runtime": "bash",
+  "purpose": "Final verification of CLI commands",
+  "script_chars": 166,
+  "started_at": "2026-05-30T18:39:44.206Z",
+  "finished_at": "2026-05-30T18:39:44.610Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 404,
+  "stdout_bytes": 170,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/8eaa5161-4d6f-48c8-8cc5-6c5028bf431e.stdout",
+  "stderr_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/8eaa5161-4d6f-48c8-8cc5-6c5028bf431e.stderr"
+}

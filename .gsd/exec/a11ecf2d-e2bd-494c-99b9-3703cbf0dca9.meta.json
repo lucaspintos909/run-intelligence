@@ -1,0 +1,18 @@
+{
+  "id": "a11ecf2d-e2bd-494c-99b9-3703cbf0dca9",
+  "runtime": "bash",
+  "purpose": "Verify run association CLI tests pass",
+  "script_chars": 88,
+  "started_at": "2026-05-30T18:29:50.493Z",
+  "finished_at": "2026-05-30T18:29:51.404Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 911,
+  "stdout_bytes": 1153,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/a11ecf2d-e2bd-494c-99b9-3703cbf0dca9.stdout",
+  "stderr_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/a11ecf2d-e2bd-494c-99b9-3703cbf0dca9.stderr"
+}
