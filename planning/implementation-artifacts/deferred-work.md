@@ -34,3 +34,9 @@
 - Unbounded memory consumption for very large directories [runner.py:334] — deferred, pre-existing (not in spec scope)
 - Missing per-file success indicators on stdout [runner.py:372-394] — deferred, spec ambiguity
 - Dry-run summary wording "would be processed" [runner.py:372-394] — deferred, spec ambiguity
+
+## Deferred from: code review of 1-9-cli-output-modes (2026-05-22)
+
+- _handle_batch exit-code mapping relies on fragile substring matching [cli.py:59] — deferred, pre-existing
+- Batch command treats empty directory as failure [cli.py:54-56] — deferred, pre-existing
+- Tests: unmocked AuditLogRepository in unit tests [test_cli.py:multiple] — deferred, tests pass
