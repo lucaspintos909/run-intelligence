@@ -187,6 +187,9 @@ def log_health(
         None, "--saba-use", help="Rescue inhaler used (true/false)"
     ),
     notes: Optional[str] = typer.Option(None, "--notes", help="Additional notes"),
+    associate_run: Optional[int] = typer.Option(
+        None, "--associate-run", help="Associate this health entry with a run ID"
+    ),
     verbose: bool = typer.Option(
         False, "--verbose", "-v", help="Show saved field values"
     ),
@@ -203,7 +206,11 @@ def log_health(
         2: Invalid arguments
     """
     from run_intelligence.db.session import _get_engine
-    from run_intelligence.db.repository import AuditLogRepository, HealthLogRepository
+    from run_intelligence.db.repository import (
+        AuditLogRepository,
+        HealthLogRepository,
+        RunRepository,
+    )
     from sqlalchemy.orm import sessionmaker
 
     # Handle saba_use: if not provided via flag, prompt with typer.confirm()
@@ -217,6 +224,7 @@ def log_health(
         and asthma_symptoms is None
         and saba_use is None
         and notes is None
+        and associate_run is None
     )
 
     if interactive_mode:
@@ -259,9 +267,21 @@ def log_health(
         session = SessionLocal()
         try:
             audit_logger = AuditLogRepository(session=session)
+            run_repo = RunRepository(session=session, audit_logger=audit_logger)
             health_repo = HealthLogRepository(
                 session=session, audit_logger=audit_logger
             )
+
+            # Validate associate_run if provided
+            run_id = None
+            if associate_run is not None:
+                run = run_repo.get_run(associate_run)
+                if run is None:
+                    sys.stderr.write(
+                        f"[VALIDATION_ERROR] Run with ID {associate_run} not found.\n"
+                    )
+                    raise Exit(code=2)
+                run_id = associate_run
 
             entry = health_repo.create_entry(
                 entry_date=parsed_date,
@@ -271,6 +291,7 @@ def log_health(
                 asthma_symptoms=asthma_symptoms,
                 saba_use=saba_use,
                 notes=notes,
+                run_id=run_id,
             )
 
             if verbose:
