@@ -251,6 +251,70 @@ def log_health(
         notes_input = typer.prompt("Additional notes (optional, press Enter to skip):", default="")
         notes = notes_input.strip() if notes_input.strip() else None
 
+        # Interactive run selection prompt
+        # First, check if there are any runs to associate with
+        engine = _get_engine()
+        SessionLocal = sessionmaker(bind=engine)
+        session = SessionLocal()
+        try:
+            audit_logger = AuditLogRepository(session=session)
+            run_repo = RunRepository(session=session, audit_logger=audit_logger)
+            available_runs = run_repo.get_runs(limit=100)
+        finally:
+            session.close()
+
+        if available_runs:
+            # Show available runs to user
+            sys.stdout.write("\nAvailable runs:\n")
+            sys.stdout.write(f"{'ID':<6} {'Date':<12} {'Distance':<10}\n")
+            sys.stdout.write("-" * 30 + "\n")
+
+            for run in available_runs:
+                run_date = run.processed_at.strftime("%Y-%m-%d") if run.processed_at else "N/A"
+                # Extract distance from raw_metrics_json if available
+                distance_str = "N/A"
+                if run.raw_metrics_json:
+                    import json
+                    try:
+                        metrics = json.loads(run.raw_metrics_json)
+                        distance = metrics.get("distance")
+                        if distance is not None:
+                            distance_str = f"{distance:.1f}m"
+                    except Exception:
+                        pass
+                sys.stdout.write(f"{run.id:<6} {run_date:<12} {distance_str:<10}\n")
+
+            # Ask user if they want to associate with a run
+            associate_prompt = typer.confirm("\nAssociate this health entry with a run?", default=False)
+
+            if associate_prompt:
+                while True:
+                    try:
+                        run_selection = typer.prompt("Enter run ID to associate (or press Enter to skip)", default="")
+                        if not run_selection.strip():
+                            associate_run = None
+                            break
+
+                        selected_id = int(run_selection.strip())
+                        # Validate the run exists
+                        session = SessionLocal()
+                        try:
+                            run_repo = RunRepository(session=session, audit_logger=AuditLogRepository(session=session))
+                            run = run_repo.get_run(selected_id)
+                            if run is not None:
+                                associate_run = selected_id
+                                sys.stdout.write(f"Associated with run ID {selected_id}\n")
+                                break
+                            else:
+                                sys.stderr.write(f"Run with ID {selected_id} not found. Please try again.\n")
+                        finally:
+                            session.close()
+                    except ValueError:
+                        sys.stderr.write("Invalid input. Please enter a valid run ID number.\n")
+        else:
+            sys.stdout.write("\nNo runs available to associate with. Run 'run-intelligence process <file>' to add runs first.\n")
+            associate_run = None
+
     try:
         parsed_date = date_type.today()
         if date:
