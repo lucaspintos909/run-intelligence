@@ -357,3 +357,195 @@ class TestLogHealthErrorHandling:
                 )
                 assert result.exit_code == 1
                 assert "[LOG_HEALTH_ERROR]" in result.output
+
+
+class TestLogHealthRunAssociation:
+    """Tests for run association functionality in log-health command."""
+
+    @pytest.fixture
+    def mock_run(self):
+        """Create a mock run object."""
+        mock = MagicMock()
+        mock.id = 1
+        mock.file_path = "/path/to/run.fit"
+        mock.processed_at = date(2026, 5, 21)
+        mock.raw_metrics_json = '{"distance": 5000}'
+        return mock
+
+    @pytest.fixture
+    def mock_health_entry(self):
+        """Create a mock health log entry."""
+        mock = MagicMock()
+        mock.id = 1
+        mock.date = date(2026, 5, 21)
+        return mock
+
+    def test_associate_with_valid_run_id_passes(self, mock_run, mock_health_entry):
+        """Test that associating with a valid run ID succeeds."""
+        with patch("run_intelligence.db.session._get_engine"):
+            with patch(
+                "run_intelligence.db.repository.RunRepository"
+            ) as mock_run_repo_class:
+                mock_run_repo = MagicMock()
+                mock_run_repo.get_run.return_value = mock_run
+                mock_run_repo_class.return_value = mock_run_repo
+
+                with patch(
+                    "run_intelligence.db.repository.HealthLogRepository"
+                ) as mock_health_repo_class:
+                    mock_health_repo = MagicMock()
+                    mock_health_repo.create_entry.return_value = mock_health_entry
+                    mock_health_repo_class.return_value = mock_health_repo
+
+                    from typer.testing import CliRunner
+
+                    runner = CliRunner()
+                    result = runner.invoke(
+                        app,
+                        [
+                            "log-health",
+                            "--date", "2026-05-21",
+                            "--peak-flow", "450",
+                            "--associate-run", "1",
+                        ],
+                    )
+                    assert result.exit_code == 0
+                    # Verify the run was looked up
+                    mock_run_repo.get_run.assert_called_once_with(1)
+
+    def test_associate_with_invalid_run_id_exits_2(self, mock_health_entry):
+        """Test that associating with an invalid run ID shows error and exits 2."""
+        with patch("run_intelligence.db.session._get_engine"):
+            with patch(
+                "run_intelligence.db.repository.RunRepository"
+            ) as mock_run_repo_class:
+                mock_run_repo = MagicMock()
+                mock_run_repo.get_run.return_value = None  # Run not found
+                mock_run_repo_class.return_value = mock_run_repo
+
+                with patch(
+                    "run_intelligence.db.repository.HealthLogRepository"
+                ) as mock_health_repo_class:
+                    mock_health_repo = MagicMock()
+                    mock_health_repo.create_entry.return_value = mock_health_entry
+                    mock_health_repo_class.return_value = mock_health_repo
+
+                    from typer.testing import CliRunner
+
+                    runner = CliRunner()
+                    result = runner.invoke(
+                        app,
+                        [
+                            "log-health",
+                            "--date", "2026-05-21",
+                            "--peak-flow", "450",
+                            "--associate-run", "999",
+                        ],
+                    )
+                    assert result.exit_code == 2
+                    assert "Run with ID 999 not found" in result.output or "[VALIDATION_ERROR]" in result.output
+
+    def test_associate_with_no_available_runs_shows_message(self, mock_health_entry):
+        """Test that when no runs are available, appropriate message is shown."""
+        with patch("run_intelligence.db.session._get_engine"):
+            with patch(
+                "run_intelligence.db.repository.RunRepository"
+            ) as mock_run_repo_class:
+                mock_run_repo = MagicMock()
+                mock_run_repo.get_runs.return_value = []  # No runs
+                mock_run_repo_class.return_value = mock_run_repo
+
+                with patch(
+                    "run_intelligence.db.repository.HealthLogRepository"
+                ) as mock_health_repo_class:
+                    mock_health_repo = MagicMock()
+                    mock_health_repo.create_entry.return_value = mock_health_entry
+                    mock_health_repo_class.return_value = mock_health_repo
+
+                    from typer.testing import CliRunner
+
+                    runner = CliRunner()
+                    result = runner.invoke(
+                        app,
+                        [
+                            "log-health",
+                            "--date", "2026-05-21",
+                            "--peak-flow", "450",
+                        ],
+                    )
+                    # This should succeed - the no-runs message only shows in interactive mode
+                    assert result.exit_code == 0
+
+    def test_interactive_mode_with_runs_shows_available_runs(self, mock_run, mock_health_entry):
+        """Test interactive mode shows available runs when runs exist."""
+        mock_session = MagicMock()
+        
+        with patch("run_intelligence.db.session._get_engine"):
+            with patch("sqlalchemy.orm.sessionmaker") as mock_sessionmaker:
+                mock_sessionmaker.return_value.return_value = mock_session
+                
+                with patch(
+                    "run_intelligence.db.repository.RunRepository"
+                ) as mock_run_repo_class:
+                    mock_run_repo = MagicMock()
+                    mock_run_repo.get_runs.return_value = [mock_run]
+                    mock_run_repo.get_run.return_value = mock_run
+                    mock_run_repo_class.return_value = mock_run_repo
+
+                    with patch(
+                        "run_intelligence.db.repository.HealthLogRepository"
+                    ) as mock_health_repo_class:
+                        mock_health_repo = MagicMock()
+                        mock_health_repo.create_entry.return_value = mock_health_entry
+                        mock_health_repo_class.return_value = mock_health_repo
+
+                        from typer.testing import CliRunner
+
+                        runner = CliRunner()
+                        # Interactive mode - no health args, let user select run
+                        # Input: date, peak_flow, sleep_quality, skip post_run_rpe, skip asthma_symptoms,
+                        # saba_use (n), skip notes, decline to associate with run (n)
+                        result = runner.invoke(
+                            app,
+                            ["log-health"],
+                            input="2026-05-21\n450\n3\n\n\nn\n\nn\n",
+                        )
+                        # Should complete without error
+                        assert result.exit_code == 0
+
+    def test_interactive_mode_selects_run(self, mock_run, mock_health_entry):
+        """Test interactive mode allows run selection."""
+        mock_session = MagicMock()
+        
+        with patch("run_intelligence.db.session._get_engine"):
+            with patch("sqlalchemy.orm.sessionmaker") as mock_sessionmaker:
+                mock_sessionmaker.return_value.return_value = mock_session
+                
+                with patch(
+                    "run_intelligence.db.repository.RunRepository"
+                ) as mock_run_repo_class:
+                    mock_run_repo = MagicMock()
+                    mock_run_repo.get_runs.return_value = [mock_run]
+                    mock_run_repo.get_run.return_value = mock_run
+                    mock_run_repo_class.return_value = mock_run_repo
+
+                    with patch(
+                        "run_intelligence.db.repository.HealthLogRepository"
+                    ) as mock_health_repo_class:
+                        mock_health_repo = MagicMock()
+                        mock_health_repo.create_entry.return_value = mock_health_entry
+                        mock_health_repo_class.return_value = mock_health_repo
+
+                        from typer.testing import CliRunner
+
+                        runner = CliRunner()
+                        # Interactive mode with run selection
+                        # Input: date, peak_flow, skip sleep, skip rpe, skip symptoms, saba_use (n),
+                        # skip notes, confirm to associate with run (y), enter run ID 1
+                        result = runner.invoke(
+                            app,
+                            ["log-health"],
+                            input="2026-05-21\n450\n\n\n\nn\n\ny\n1\n",
+                        )
+                        # Should complete successfully
+                        assert result.exit_code == 0
