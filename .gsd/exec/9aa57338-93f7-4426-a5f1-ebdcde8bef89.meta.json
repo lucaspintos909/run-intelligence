@@ -1,0 +1,18 @@
+{
+  "id": "9aa57338-93f7-4426-a5f1-ebdcde8bef89",
+  "runtime": "bash",
+  "purpose": "Find db files",
+  "script_chars": 53,
+  "started_at": "2026-05-30T18:16:56.450Z",
+  "finished_at": "2026-05-30T18:16:56.460Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 10,
+  "stdout_bytes": 151,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/9aa57338-93f7-4426-a5f1-ebdcde8bef89.stdout",
+  "stderr_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/9aa57338-93f7-4426-a5f1-ebdcde8bef89.stderr"
+}

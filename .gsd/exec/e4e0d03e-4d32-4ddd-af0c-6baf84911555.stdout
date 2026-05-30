@@ -1,0 +1,22 @@
+total 248
+drwxr-xr-x. 1 lpintos lpintos    330 may 30 15:22 .
+drwxr-xr-x. 1 lpintos lpintos      8 may 30 14:53 ..
+drwxr-xr-x. 1 lpintos lpintos     78 may 30 15:22 alembic
+-rw-r--r--. 1 lpintos lpintos    246 may 30 14:53 alembic.ini
+-rw-r--r--. 1 lpintos lpintos    784 may 30 14:53 alembic.ini.tpl
+drwxr-xr-x. 1 lpintos lpintos     26 may 30 14:53 .bg-shell
+drwxr-xr-x. 1 lpintos lpintos     38 may 30 15:26 data
+drwxr-xr-x. 1 lpintos lpintos    254 may 30 14:53 docs
+-rw-r--r--. 1 lpintos lpintos    182 may 30 14:53 .env.example
+-rw-r--r--. 1 lpintos lpintos     69 may 30 14:53 .git
+-rw-r--r--. 1 lpintos lpintos   5145 may 30 14:53 .gitignore
+-rw-r--r--. 1 lpintos lpintos   5120 may 30 14:53 .graphifyignore
+drwxr-xr-x. 1 lpintos lpintos    186 may 30 15:26 .gsd
+drwxr-xr-x. 1 lpintos lpintos    110 may 30 14:53 planning
+-rw-r--r--. 1 lpintos lpintos 201909 may 30 14:53 poetry.lock
+-rw-r--r--. 1 lpintos lpintos    849 may 30 14:53 pyproject.toml
+drwxr-xr-x. 1 lpintos lpintos     64 may 30 15:10 .pytest_cache
+-rw-r--r--. 1 lpintos lpintos   6279 may 30 14:53 README.md
+drwxr-xr-x. 1 lpintos lpintos     24 may 30 14:53 scripts
+drwxr-xr-x. 1 lpintos lpintos     32 may 30 14:53 src
+drwxr-xr-x. 1 lpintos lpintos    270 may 30 15:10 tests

@@ -167,6 +167,7 @@ def batch(
 
 @app.command()
 def log_health(
+    ctx: typer.Context,
     date: Optional[str] = typer.Option(
         None, "--date", help="Date (YYYY-MM-DD), defaults to today"
     ),
@@ -186,6 +187,9 @@ def log_health(
         None, "--saba-use", help="Rescue inhaler used (true/false)"
     ),
     notes: Optional[str] = typer.Option(None, "--notes", help="Additional notes"),
+    associate_run: Optional[int] = typer.Option(
+        None, "--associate-run", help="Associate this health entry with a run ID"
+    ),
     verbose: bool = typer.Option(
         False, "--verbose", "-v", help="Show saved field values"
     ),
@@ -202,8 +206,114 @@ def log_health(
         2: Invalid arguments
     """
     from run_intelligence.db.session import _get_engine
-    from run_intelligence.db.repository import AuditLogRepository, HealthLogRepository
+    from run_intelligence.db.repository import (
+        AuditLogRepository,
+        HealthLogRepository,
+        RunRepository,
+    )
     from sqlalchemy.orm import sessionmaker
+
+    # Handle saba_use: if not provided via flag, prompt with typer.confirm()
+    # Check if we're in interactive mode (no health fields provided via CLI)
+    # If no health-related arguments are provided, prompt interactively for each field
+    interactive_mode = (
+        date is None
+        and peak_flow is None
+        and sleep_quality is None
+        and post_run_rpe is None
+        and asthma_symptoms is None
+        and saba_use is None
+        and notes is None
+        and associate_run is None
+    )
+
+    if interactive_mode:
+        # Prompt for date (optional, defaults to today)
+        date_input = typer.prompt("Date (YYYY-MM-DD), or press Enter for today:", default="")
+        date = date_input if date_input.strip() else None
+
+        # Prompt for numeric fields with validation
+        peak_flow_input = typer.prompt("Peak flow reading (L/min), or press Enter to skip:", default="")
+        peak_flow = int(peak_flow_input) if peak_flow_input.strip() else None
+
+        sleep_quality_input = typer.prompt("Sleep quality (1-5), or press Enter to skip:", default="")
+        sleep_quality = int(sleep_quality_input) if sleep_quality_input.strip() else None
+
+        post_run_rpe_input = typer.prompt("Post-run RPE (1-10), or press Enter to skip:", default="")
+        post_run_rpe = int(post_run_rpe_input) if post_run_rpe_input.strip() else None
+
+        asthma_symptoms_input = typer.prompt("Asthma symptoms (0-5), or press Enter to skip:", default="")
+        asthma_symptoms = int(asthma_symptoms_input) if asthma_symptoms_input.strip() else None
+
+        # saba_use uses typer.confirm() for boolean
+        saba_use = typer.confirm("Rescue inhaler/SABA used?", default=None)
+
+        notes_input = typer.prompt("Additional notes (optional, press Enter to skip):", default="")
+        notes = notes_input.strip() if notes_input.strip() else None
+
+        # Interactive run selection prompt
+        # First, check if there are any runs to associate with
+        engine = _get_engine()
+        SessionLocal = sessionmaker(bind=engine)
+        session = SessionLocal()
+        try:
+            audit_logger = AuditLogRepository(session=session)
+            run_repo = RunRepository(session=session, audit_logger=audit_logger)
+            available_runs = run_repo.get_runs(limit=100)
+        finally:
+            session.close()
+
+        if available_runs:
+            # Show available runs to user
+            sys.stdout.write("\nAvailable runs:\n")
+            sys.stdout.write(f"{'ID':<6} {'Date':<12} {'Distance':<10}\n")
+            sys.stdout.write("-" * 30 + "\n")
+
+            for run in available_runs:
+                run_date = run.processed_at.strftime("%Y-%m-%d") if run.processed_at else "N/A"
+                # Extract distance from raw_metrics_json if available
+                distance_str = "N/A"
+                if run.raw_metrics_json:
+                    import json
+                    try:
+                        metrics = json.loads(run.raw_metrics_json)
+                        distance = metrics.get("distance")
+                        if distance is not None:
+                            distance_str = f"{distance:.1f}m"
+                    except Exception:
+                        pass
+                sys.stdout.write(f"{run.id:<6} {run_date:<12} {distance_str:<10}\n")
+
+            # Ask user if they want to associate with a run
+            associate_prompt = typer.confirm("\nAssociate this health entry with a run?", default=False)
+
+            if associate_prompt:
+                while True:
+                    try:
+                        run_selection = typer.prompt("Enter run ID to associate (or press Enter to skip)", default="")
+                        if not run_selection.strip():
+                            associate_run = None
+                            break
+
+                        selected_id = int(run_selection.strip())
+                        # Validate the run exists
+                        session = SessionLocal()
+                        try:
+                            run_repo = RunRepository(session=session, audit_logger=AuditLogRepository(session=session))
+                            run = run_repo.get_run(selected_id)
+                            if run is not None:
+                                associate_run = selected_id
+                                sys.stdout.write(f"Associated with run ID {selected_id}\n")
+                                break
+                            else:
+                                sys.stderr.write(f"Run with ID {selected_id} not found. Please try again.\n")
+                        finally:
+                            session.close()
+                    except ValueError:
+                        sys.stderr.write("Invalid input. Please enter a valid run ID number.\n")
+        else:
+            sys.stdout.write("\nNo runs available to associate with. Run 'run-intelligence process <file>' to add runs first.\n")
+            associate_run = None
 
     try:
         parsed_date = date_type.today()
@@ -221,9 +331,21 @@ def log_health(
         session = SessionLocal()
         try:
             audit_logger = AuditLogRepository(session=session)
+            run_repo = RunRepository(session=session, audit_logger=audit_logger)
             health_repo = HealthLogRepository(
                 session=session, audit_logger=audit_logger
             )
+
+            # Validate associate_run if provided
+            run_id = None
+            if associate_run is not None:
+                run = run_repo.get_run(associate_run)
+                if run is None:
+                    sys.stderr.write(
+                        f"[VALIDATION_ERROR] Run with ID {associate_run} not found.\n"
+                    )
+                    raise Exit(code=2)
+                run_id = associate_run
 
             entry = health_repo.create_entry(
                 entry_date=parsed_date,
@@ -233,6 +355,7 @@ def log_health(
                 asthma_symptoms=asthma_symptoms,
                 saba_use=saba_use,
                 notes=notes,
+                run_id=run_id,
             )
 
             if verbose:
@@ -435,6 +558,144 @@ def report(
         raise
     except Exception as e:
         sys.stderr.write(f"[REPORT_ERROR] {e}\n")
+        raise Exit(code=1)
+
+
+@app.command()
+def list_health_logs(
+    limit: int = typer.Option(
+        50, "--limit", help="Maximum number of entries to show"
+    ),
+) -> None:
+    """List all health log entries.
+
+    Shows a formatted list of health log entries with dates and key metrics.
+
+    Example:
+        run-intelligence list-health-logs
+        run-intelligence list-health-logs --limit 100
+
+    Exit codes:
+        0: Success
+        1: Database error
+    """
+    from run_intelligence.db.session import _get_engine
+    from run_intelligence.db.repository import (
+        AuditLogRepository,
+        HealthLogRepository,
+    )
+    from sqlalchemy.orm import sessionmaker
+
+    try:
+        engine = _get_engine()
+        SessionLocal = sessionmaker(bind=engine)
+        session = SessionLocal()
+        try:
+            audit_logger = AuditLogRepository(session=session)
+            health_repo = HealthLogRepository(
+                session=session, audit_logger=audit_logger
+            )
+
+            entries = health_repo.get_entries(limit=limit)
+
+            if not entries:
+                sys.stdout.write("No health log entries found.\n")
+                raise Exit(code=0)
+
+            # Format header
+            sys.stdout.write(f"{'ID':<6} {'Date':<12} {'Peak Flow':<10} {'Sleep':<6} {'RPE':<5} {'Symptoms':<10} {'SABA':<6}\n")
+            sys.stdout.write("-" * 60 + "\n")
+
+            # Format each entry
+            for entry in entries:
+                date_str = str(entry.date) if entry.date else "-"
+                peak_flow = f"{entry.peak_flow}" if entry.peak_flow is not None else "-"
+                sleep = f"{entry.sleep_quality}" if entry.sleep_quality is not None else "-"
+                rpe = f"{entry.post_run_rpe}" if entry.post_run_rpe is not None else "-"
+                symptoms = f"{entry.asthma_symptoms}" if entry.asthma_symptoms is not None else "-"
+                saba = "yes" if entry.saba_use else "no" if entry.saba_use is not None else "-"
+
+                sys.stdout.write(
+                    f"{entry.id:<6} {date_str:<12} {peak_flow:<10} {sleep:<6} {rpe:<5} {symptoms:<10} {saba:<6}\n"
+                )
+
+            sys.stdout.write(f"\nTotal: {len(entries)} entries\n")
+
+        finally:
+            session.close()
+    except Exit:
+        raise
+    except Exception as e:
+        sys.stderr.write(f"[LIST_HEALTH_LOGS_ERROR] {e}\n")
+        raise Exit(code=1)
+
+
+@app.command()
+def view_health_log(
+    id: int = typer.Option(..., "--id", help="Health log entry ID to view"),
+) -> None:
+    """View details of a specific health log entry.
+
+    Shows all recorded fields for the specified health log entry.
+
+    Example:
+        run-intelligence view-health-log --id 1
+
+    Exit codes:
+        0: Success
+        1: Database error
+        2: Entry not found (invalid ID)
+    """
+    from run_intelligence.db.session import _get_engine
+    from run_intelligence.db.repository import (
+        AuditLogRepository,
+        HealthLogRepository,
+    )
+    from sqlalchemy.orm import sessionmaker
+
+    try:
+        engine = _get_engine()
+        SessionLocal = sessionmaker(bind=engine)
+        session = SessionLocal()
+        try:
+            audit_logger = AuditLogRepository(session=session)
+            health_repo = HealthLogRepository(
+                session=session, audit_logger=audit_logger
+            )
+
+            entry = health_repo.get_entry(id)
+
+            if entry is None:
+                sys.stderr.write(f"[ERROR] Health log entry with ID {id} not found.\n")
+                raise Exit(code=2)
+
+            # Format entry details
+            sys.stdout.write(f"Health Log Entry #{entry.id}\n")
+            sys.stdout.write("=" * 40 + "\n")
+            sys.stdout.write(f"Date:          {entry.date}\n")
+
+            if entry.peak_flow is not None:
+                sys.stdout.write(f"Peak Flow:     {entry.peak_flow} L/min\n")
+            if entry.sleep_quality is not None:
+                sys.stdout.write(f"Sleep Quality: {entry.sleep_quality}/5\n")
+            if entry.post_run_rpe is not None:
+                sys.stdout.write(f"Post-run RPE:  {entry.post_run_rpe}/10\n")
+            if entry.asthma_symptoms is not None:
+                sys.stdout.write(f"Asthma Symptoms: {entry.asthma_symptoms}/5\n")
+            if entry.saba_use is not None:
+                saba_str = "yes" if entry.saba_use else "no"
+                sys.stdout.write(f"SABA Use:     {saba_str}\n")
+            if entry.notes:
+                sys.stdout.write(f"Notes:         {entry.notes}\n")
+            if entry.run_id is not None:
+                sys.stdout.write(f"Associated Run ID: {entry.run_id}\n")
+
+        finally:
+            session.close()
+    except Exit:
+        raise
+    except Exception as e:
+        sys.stderr.write(f"[VIEW_HEALTH_LOG_ERROR] {e}\n")
         raise Exit(code=1)
 
 

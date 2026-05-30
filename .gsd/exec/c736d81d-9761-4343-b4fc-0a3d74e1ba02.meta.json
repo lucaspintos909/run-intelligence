@@ -1,0 +1,18 @@
+{
+  "id": "c736d81d-9761-4343-b4fc-0a3d74e1ba02",
+  "runtime": "bash",
+  "purpose": "Run CLI tests for health log",
+  "script_chars": 148,
+  "started_at": "2026-05-30T18:36:52.313Z",
+  "finished_at": "2026-05-30T18:36:53.129Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 816,
+  "stdout_bytes": 3520,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/c736d81d-9761-4343-b4fc-0a3d74e1ba02.stdout",
+  "stderr_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/c736d81d-9761-4343-b4fc-0a3d74e1ba02.stderr"
+}

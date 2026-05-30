@@ -1,0 +1,18 @@
+{
+  "id": "89cb55ee-6144-419f-b6d3-2133eb946b01",
+  "runtime": "bash",
+  "purpose": "Test list-health-logs command",
+  "script_chars": 116,
+  "started_at": "2026-05-30T18:36:40.607Z",
+  "finished_at": "2026-05-30T18:36:40.935Z",
+  "exit_code": 1,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 328,
+  "stdout_bytes": 211,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/89cb55ee-6144-419f-b6d3-2133eb946b01.stdout",
+  "stderr_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/89cb55ee-6144-419f-b6d3-2133eb946b01.stderr"
+}

@@ -1,0 +1,18 @@
+{
+  "id": "62a7926e-36d3-4bb0-a698-508a99b465ba",
+  "runtime": "bash",
+  "purpose": "Debug failing test",
+  "script_chars": 219,
+  "started_at": "2026-05-30T18:25:09.303Z",
+  "finished_at": "2026-05-30T18:25:10.116Z",
+  "exit_code": 1,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 813,
+  "stdout_bytes": 3200,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/62a7926e-36d3-4bb0-a698-508a99b465ba.stdout",
+  "stderr_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/62a7926e-36d3-4bb0-a698-508a99b465ba.stderr"
+}

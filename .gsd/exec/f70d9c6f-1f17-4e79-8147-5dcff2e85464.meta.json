@@ -1,0 +1,18 @@
+{
+  "id": "f70d9c6f-1f17-4e79-8147-5dcff2e85464",
+  "runtime": "bash",
+  "purpose": "Verify view-health-log help",
+  "script_chars": 122,
+  "started_at": "2026-05-30T18:35:36.186Z",
+  "finished_at": "2026-05-30T18:35:36.588Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 402,
+  "stdout_bytes": 1445,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/f70d9c6f-1f17-4e79-8147-5dcff2e85464.stdout",
+  "stderr_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/f70d9c6f-1f17-4e79-8147-5dcff2e85464.stderr"
+}

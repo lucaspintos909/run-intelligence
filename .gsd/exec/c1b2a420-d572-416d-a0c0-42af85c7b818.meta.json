@@ -1,0 +1,18 @@
+{
+  "id": "c1b2a420-d572-416d-a0c0-42af85c7b818",
+  "runtime": "bash",
+  "purpose": "Run run-association tests",
+  "script_chars": 88,
+  "started_at": "2026-05-30T18:26:42.583Z",
+  "finished_at": "2026-05-30T18:26:43.338Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 755,
+  "stdout_bytes": 1234,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/c1b2a420-d572-416d-a0c0-42af85c7b818.stdout",
+  "stderr_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/c1b2a420-d572-416d-a0c0-42af85c7b818.stderr"
+}

@@ -1,0 +1,101 @@
+158:class HealthLogRepository:
+159-    """Repository for HealthLog entity CRUD operations."""
+160-
+161-    def __init__(self, session: Session, audit_logger: AuditLogRepository):
+162-        self.session = session
+163-        self.audit_logger = audit_logger
+164-
+165-    def create_entry(
+166-        self,
+167-        entry_date: Optional[date] = None,
+168-        peak_flow: Optional[int] = None,
+169-        sleep_quality: Optional[int] = None,
+170-        post_run_rpe: Optional[int] = None,
+171-        asthma_symptoms: Optional[int] = None,
+172-        saba_use: Optional[bool] = None,
+173-        notes: Optional[str] = None,
+174-        run_id: Optional[int] = None,
+175-    ) -> HealthLog:
+176-        """Create a new health log entry."""
+177-        if entry_date is None:
+178-            entry_date = date.today()
+179-        health_log = HealthLog(
+180-            date=entry_date,
+181-            peak_flow=peak_flow,
+182-            sleep_quality=sleep_quality,
+183-            post_run_rpe=post_run_rpe,
+184-            asthma_symptoms=asthma_symptoms,
+185-            saba_use=saba_use,
+186-            notes=notes,
+187-            run_id=run_id,
+188-        )
+189-        self.session.add(health_log)
+190-        self.session.flush()
+191-        self.audit_logger.log_operation(
+192-            operation="CREATE",
+193-            table_name="health_log",
+194-            agent="health_log",
+195-            record_id=health_log.id,
+196-        )
+197-        self.session.commit()
+198-        return health_log
+199-
+200-    def get_entry(self, entry_id: int) -> Optional[HealthLog]:
+201-        """Get a health log entry by ID."""
+202-        return self.session.query(HealthLog).filter(HealthLog.id == entry_id).first()
+203-
+204-    def get_entries(self, limit: int = 100) -> List[HealthLog]:
+205-        """Get all health log entries with optional limit."""
+206-        limit = _ensure_positive_limit(limit, 100)
+207-        return self.session.query(HealthLog).order_by(HealthLog.date.desc()).limit(limit).all()
+208-
+209-    def update_entry(
+210-        self,
+211-        entry_id: int,
+212-        peak_flow: Optional[int] = _UNSET,
+213-        sleep_quality: Optional[int] = _UNSET,
+214-        post_run_rpe: Optional[int] = _UNSET,
+215-        asthma_symptoms: Optional[int] = _UNSET,
+216-        saba_use: Optional[bool] = _UNSET,
+217-        notes: Optional[str] = _UNSET,
+218-        run_id: Optional[int] = _UNSET,
+219-    ) -> Optional[HealthLog]:
+220-        """Update an existing health log entry."""
+221-        entry = self.get_entry(entry_id)
+222-        if not entry:
+223-            return None
+224-        if peak_flow is not _UNSET:
+225-            entry.peak_flow = peak_flow
+226-        if sleep_quality is not _UNSET:
+227-            entry.sleep_quality = sleep_quality
+228-        if post_run_rpe is not _UNSET:
+229-            entry.post_run_rpe = post_run_rpe
+230-        if asthma_symptoms is not _UNSET:
+231-            entry.asthma_symptoms = asthma_symptoms
+232-        if saba_use is not _UNSET:
+233-            entry.saba_use = saba_use
+234-        if notes is not _UNSET:
+235-            entry.notes = notes
+236-        if run_id is not _UNSET:
+237-            entry.run_id = run_id
+238-        self.session.flush()
+239-        self.audit_logger.log_operation(
+240-            operation="UPDATE",
+241-            table_name="health_log",
+242-            agent="health_log",
+243-            record_id=entry.id,
+244-        )
+245-        self.session.commit()
+246-        return entry
+247-
+248-    def delete_entry(self, entry_id: int) -> bool:
+249-        """Delete a health log entry by ID."""
+250-        entry = self.get_entry(entry_id)
+251-        if not entry:
+252-            return False
+253-        self.session.delete(entry)
+254-        self.session.flush()
+255-        self.audit_logger.log_operation(
+256-            operation="DELETE",
+257-            table_name="health_log",
+258-            agent="health_log",

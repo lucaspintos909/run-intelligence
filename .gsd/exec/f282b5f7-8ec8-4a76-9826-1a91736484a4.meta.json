@@ -1,0 +1,18 @@
+{
+  "id": "f282b5f7-8ec8-4a76-9826-1a91736484a4",
+  "runtime": "bash",
+  "purpose": "Test view-health-log command with valid ID",
+  "script_chars": 142,
+  "started_at": "2026-05-30T18:36:46.131Z",
+  "finished_at": "2026-05-30T18:36:46.486Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 355,
+  "stdout_bytes": 112,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/f282b5f7-8ec8-4a76-9826-1a91736484a4.stdout",
+  "stderr_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/f282b5f7-8ec8-4a76-9826-1a91736484a4.stderr"
+}

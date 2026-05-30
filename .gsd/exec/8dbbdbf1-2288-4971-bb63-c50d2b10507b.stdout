@@ -1,0 +1,3 @@
+│ --associate-run            INTEGER                  Associate this health    │
+│                                                     entry with a run ID      │
+│ --verbose          -v                               Show saved field values  │

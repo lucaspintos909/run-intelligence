@@ -1,0 +1,10 @@
+tests/test_health_log/test_cli.py::TestLogHealthRunAssociation::test_interactive_mode_with_runs_shows_available_runs PASSED [ 74%]
+tests/test_health_log/test_cli.py::TestLogHealthRunAssociation::test_interactive_mode_selects_run PASSED [ 77%]
+tests/test_health_log/test_cli.py::TestListHealthLogs::test_list_health_logs_shows_entries PASSED [ 81%]
+tests/test_health_log/test_cli.py::TestListHealthLogs::test_list_health_logs_with_limit PASSED [ 85%]
+tests/test_health_log/test_cli.py::TestListHealthLogs::test_list_health_logs_empty_list PASSED [ 88%]
+tests/test_health_log/test_cli.py::TestViewHealthLog::test_view_health_log_shows_entry_details PASSED [ 92%]
+tests/test_health_log/test_cli.py::TestViewHealthLog::test_view_health_log_with_invalid_id_returns_exit_2 PASSED [ 96%]
+tests/test_health_log/test_cli.py::TestViewHealthLog::test_view_health_log_requires_id_option PASSED [100%]
+
+============================== 27 passed in 0.13s ==============================

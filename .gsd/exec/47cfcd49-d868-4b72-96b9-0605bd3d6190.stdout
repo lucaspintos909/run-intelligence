@@ -1,0 +1,7 @@
+./tests/test_health_log/test_cli.py
+./tests/test_health_log/test_repository.py
+./tests/conftest.py
+./tests/test_cli.py
+./tests/test_db/test_repository.py
+./tests/test_health_log/__init__.py
+./tests/test_db/test_models.py

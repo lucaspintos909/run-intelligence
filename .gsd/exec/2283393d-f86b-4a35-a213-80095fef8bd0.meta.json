@@ -1,0 +1,18 @@
+{
+  "id": "2283393d-f86b-4a35-a213-80095fef8bd0",
+  "runtime": "bash",
+  "purpose": "Find repository files",
+  "script_chars": 66,
+  "started_at": "2026-05-30T18:27:17.915Z",
+  "finished_at": "2026-05-30T18:27:17.921Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 6,
+  "stdout_bytes": 101,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/2283393d-f86b-4a35-a213-80095fef8bd0.stdout",
+  "stderr_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/2283393d-f86b-4a35-a213-80095fef8bd0.stderr"
+}

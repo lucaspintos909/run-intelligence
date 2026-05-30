@@ -1,0 +1,21 @@
+    def test_associate_with_valid_run_id_passes(self, mock_run, mock_health_entry):
+        """Test that associating with a valid run ID succeeds."""
+        with patch("run_intelligence.db.session._get_engine"):
+            with patch(
+                "run_intelligence.db.repository.RunRepository"
+            ) as mock_run_repo_class:
+                mock_run_repo = MagicMock()
+                mock_run_repo.get_run.return_value = mock_run
+                mock_run_repo_class.return_value = mock_run_repo
+
+                with patch(
+                    "run_intelligence.db.repository.HealthLogRepository"
+                ) as mock_health_repo_class:
+                    mock_health_repo = MagicMock()
+                    mock_health_repo.create_entry.return_value = mock_health_entry
+                    mock_health_repo_class.return_value = mock_health_repo
+
+                    from typer.testing import CliRunner
+
+                    runner = CliRunner()
+                    result = runner.invoke(

@@ -1,0 +1,18 @@
+{
+  "id": "54862784-7c7a-47b3-b905-7d3875b71cbb",
+  "runtime": "bash",
+  "purpose": "Verify new CLI commands appear in main help",
+  "script_chars": 153,
+  "started_at": "2026-05-30T18:35:26.664Z",
+  "finished_at": "2026-05-30T18:35:27.073Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 409,
+  "stdout_bytes": 170,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/54862784-7c7a-47b3-b905-7d3875b71cbb.stdout",
+  "stderr_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/54862784-7c7a-47b3-b905-7d3875b71cbb.stderr"
+}

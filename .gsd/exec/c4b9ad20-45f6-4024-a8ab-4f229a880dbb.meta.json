@@ -1,0 +1,18 @@
+{
+  "id": "c4b9ad20-45f6-4024-a8ab-4f229a880dbb",
+  "runtime": "bash",
+  "purpose": "Verify --associate-run appears in CLI help",
+  "script_chars": 70,
+  "started_at": "2026-05-30T18:28:52.868Z",
+  "finished_at": "2026-05-30T18:28:53.359Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 491,
+  "stdout_bytes": 255,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/c4b9ad20-45f6-4024-a8ab-4f229a880dbb.stdout",
+  "stderr_path": "/home/lpintos/proyectos/run-intelligence/.gsd/worktrees/M001/.gsd/exec/c4b9ad20-45f6-4024-a8ab-4f229a880dbb.stderr"
+}
