@@ -7,6 +7,7 @@ graphify-out
 data/
 *.db
 .bg-shell
+.agents
 
 ### dotenv ###
 .env
@@ -276,3 +277,45 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos,python,visualstudiocode,dotenv
+
+# ── GSD baseline (auto-generated) ──
+.gsd-id
+.gsd/exec/
+.gsd/CODEBASE.md
+.gsd/STATE.md
+.gsd/audit/
+.gsd/doctor-history.jsonl
+.gsd/notifications.jsonl
+.gsd/journal/
+.gsd/runtime/
+.gsd/graphs/
+.gsd/notifications.jsonl
+.mcp.json
+.bg-shell/
+nul
+nul.*
+con
+con.*
+prn
+prn.*
+aux
+aux.*
+com[1-9]
+com[1-9].*
+lpt[1-9]
+lpt[1-9].*
+*.swp
+*.swo
+.idea/
+.vscode/
+*.code-workspace
+.env.*
+!.env.example
+node_modules/
+.next/
+*.pyc
+.venv/
+vendor/
+coverage/
+.cache/
+tmp/
